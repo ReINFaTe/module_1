@@ -1,0 +1,15 @@
+<?php
+/**
+ * Implements hook_theme().
+ */
+function reinfate_theme($existing, $type, $theme, $path) : array
+{
+  return [
+    'reinfate-page' => [
+      'variables' => [
+        'title' => NULL,
+        'text' => NULL,
+      ]
+    ]
+  ];
+}

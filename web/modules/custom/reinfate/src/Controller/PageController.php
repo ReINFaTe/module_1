@@ -15,8 +15,9 @@ class PageController extends ControllerBase {
   public function build(): array {
 
     $build['content'] = [
-      '#type' => 'item',
-      '#markup' => $this->t('Hello! You can add here a photo of your cat.'),
+      '#theme' => 'reinfate-page',
+      '#title' => $this->t('Hello!'),
+      '#text' => $this->t('You can add here a photo of your cat.'),
     ];
 
     return $build;

@@ -1,0 +1,8 @@
+reinfate.cats:
+  path: '/reinfate/cats'
+  defaults:
+    _title: 'Cats'
+    _controller: '\Drupal\reinfate\Controller\PageController::build'
+  requirements:
+    _permission: 'access content'
+

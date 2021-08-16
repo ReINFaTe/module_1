@@ -1,0 +1,82 @@
+<?php
+
+use Drupal\Component\Render\FormattableMarkup;
+use Drupal\Component\Utility\Html;
+use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Routing\RouteMatchInterface;
+
+/**
+ * Implements hook_form_BASE_FORM_ID_alter().
+ */
+function menu_icons_form_menu_link_content_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+  $menu_link = $form_state->getFormObject()->getEntity();
+  $menu_link_options = $menu_link->link->first()->options ?: [];
+
+  $form['link_alter'] = [
+    '#type' => 'details',
+    '#title' => t('Link text and icon settings'),
+    '#weight' => 5,
+    '#open' => TRUE,
+  ];
+
+  $form['link_alter']['icon'] = [
+    '#type' => 'textfield',
+    '#title' => t('Font Awesome icon'),
+    '#description' => t('For example:') . ' fas fa-home',
+    '#default_value' => !empty($menu_link_options['icon']) ? $menu_link_options['icon'] : '',
+  ];
+
+  $form['link_alter']['position'] = [
+    '#type' => 'select',
+    '#title' => t('Position'),
+    '#default_value' => !empty($menu_link_options['position']) ? $menu_link_options['position'] : 'before',
+    '#options' => [
+      'before' => t('Insert icon before link text'),
+      'after' => t('Insert icon after link text'),
+      'only' => t('Remove link text and insert icon'),
+    ],
+  ];
+
+  $form['actions']['submit']['#submit'][] = 'link_alter_menu_link_content_form_submit';
+}
+
+function link_alter_menu_link_content_form_submit(array $form, FormStateInterface $form_state) {
+  $options = [
+    'icon' => $form_state->getValue('icon') ?: '',
+    'position' => $form_state->getValue('position') ?: 'before',
+  ];
+  /** @var \Drupal\menu_link_content\Entity\MenuLinkContent $menu_link */
+  $menu_link = $form_state->getFormObject()->getEntity();
+  $menu_link->link->first()->options = $options;
+  $menu_link->save();
+}
+
+/**
+ * Implements hook_link_alter().
+ */
+function menu_icons_link_alter(&$variables) {
+  if(isset($variables['options']['icon'])) {
+    $icon = $variables['options']['icon'];
+    $position = $variables['options']['position'];
+    $link_text = $variables['text'];
+    $markup = "<i class= ':icon'></i>";
+    switch ($position) {
+      case 'before': {
+        $icon_markup = new FormattableMarkup($markup . ' ' . ':title', [':icon' => $icon, ':title' => $link_text]);
+        $variables['text'] = $icon_markup;
+        break;
+      }
+      case 'after': {
+        $icon_markup = new FormattableMarkup(':title' . ' ' . $markup, [':icon' => $icon, ':title' => $link_text]);
+        $variables['text'] = $icon_markup;
+        break;
+      }
+      case 'only': {
+        $icon_markup = new FormattableMarkup($markup, [':icon' => $icon, ':title' => $link_text]);
+        $variables['text'] = $icon_markup;
+        break;
+      }
+    }
+
+  }
+}

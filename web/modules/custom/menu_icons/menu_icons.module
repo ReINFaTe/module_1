@@ -62,12 +62,12 @@ function menu_icons_link_alter(&$variables) {
     $markup = "<i class= ':icon'></i>";
     switch ($position) {
       case 'before': {
-        $icon_markup = new FormattableMarkup($markup . ' ' . ':title', [':icon' => $icon, ':title' => $link_text]);
+        $icon_markup = new FormattableMarkup($markup . ' ' . '<span>:title</span>', [':icon' => $icon, ':title' => $link_text]);
         $variables['text'] = $icon_markup;
         break;
       }
       case 'after': {
-        $icon_markup = new FormattableMarkup(':title' . ' ' . $markup, [':icon' => $icon, ':title' => $link_text]);
+        $icon_markup = new FormattableMarkup('<span>:title</span>' . ' ' . $markup, [':icon' => $icon, ':title' => $link_text]);
         $variables['text'] = $icon_markup;
         break;
       }

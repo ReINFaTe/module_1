@@ -1,0 +1,35 @@
+.menu-button {
+  padding: 28px 20px;
+  position: relative;
+  background-color: var(--prmDark);
+  border: none;
+  transition: all 0.75s;
+  &:hover{
+    background-color: var(--prm);
+  }
+  span {
+    text-align: center;
+    height: 3px;
+    width: 23px;
+    display: inline-block;
+    line-height: 0;
+    position: relative;
+    background: var(--textPrm);
+    transition: all 0.2s ease-out;
+    &::before,
+    &::after {
+      height: 100%;
+      width: 100%;
+      display: block;
+      position: absolute;
+      background: var(--textPrm);
+      content: "";
+    }
+    &::before {
+      top: 7px;
+    }
+    &::after {
+      top: -7px;
+    }
+  }
+}

@@ -1,0 +1,57 @@
+.layout-page-navigation {
+  button{
+    margin-top: auto;
+    position: fixed;
+    width: var(--page-navigation-width);
+    border-top-right-radius: 40px;
+    bottom: 0;
+  }
+  transition: all 0.75s;
+  li {
+    a {
+      svg {
+        text-align: center;
+        margin-right: auto;
+        font-size: 1.75em;
+        vertical-align: middle;
+        transform-origin: bottom;
+        path{
+          transition: stroke-dashoffset 1.5s cubic-bezier(.39,-0.04,.37,.85);
+          stroke-dasharray: 2000;
+          stroke-dashoffset: 2000;
+          stroke: var(--prm900);
+          stroke-width: 20px;
+          fill: currentColor;
+        }
+      }
+      &:hover {
+        background-color: var(--prm);
+        svg {
+          path {
+            stroke-dashoffset: 0;
+          }
+        }
+      }
+    }
+  }
+}
+.page-nav-min {
+  .layout-page-navigation{
+    li {
+      a {
+        text-align: center;
+        padding-right: 0;
+        padding-left: 0;
+        span {
+          display: none;
+        }
+      }
+    }
+    button{
+      border-top-right-radius: 0;
+      span {
+        transform: rotate(90deg);
+      }
+    }
+  }
+}

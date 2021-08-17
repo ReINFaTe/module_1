@@ -1,0 +1,11 @@
+global-styling:
+  css:
+    base:
+      css/style.min.css: {}
+  js:
+    js/page_nav.js: {}
+  dependencies:
+    - core/drupal
+    - core/drupal.message
+    - core/jquery
+    - core/jquery.once

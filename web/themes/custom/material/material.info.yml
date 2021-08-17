@@ -1,0 +1,26 @@
+name: Material theme
+type: theme
+base theme: "classy"
+description: 'Custom theme for exam'
+core_version_requirement: ^9
+version: VERSION
+
+
+regions:
+  header: 'Header'
+  site_navigation: 'Site navigation'
+  page_navigation: 'Page navigation'
+  content: 'Content'
+  footer: 'Footer'
+
+libraries:
+  - material/global-styling
+
+libraries-override:
+  classy/base:
+      css:
+        component:
+          css/components/menu.css: false
+          css/components/tabs.css: false
+          css/components/button.css: false
+

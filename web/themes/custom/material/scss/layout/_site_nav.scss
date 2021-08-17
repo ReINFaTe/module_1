@@ -1,0 +1,15 @@
+.region-site-navigation {
+  background: var(--prm);
+  box-shadow: 0 -2px 20px -2px var(--prm900);
+  border-bottom-right-radius: 40px;
+  display: flex;
+  overflow: hidden;
+
+  ul.menu{
+    display: flex;
+  }
+  .menu--account {
+    align-self: flex-end;
+    margin-left: auto;
+  }
+}

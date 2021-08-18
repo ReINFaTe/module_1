@@ -1,11 +1,14 @@
 .menu-button {
   padding: 28px 20px;
   position: relative;
-  background-color: var(--prmDark);
+  background-color: var(--theme-primary);
   border: none;
   transition: all 0.75s;
   &:hover{
-    background-color: var(--prm);
+    filter: brightness(150%);
+  }
+  &:active {
+    filter: invert(20%);
   }
   span {
     text-align: center;
@@ -14,7 +17,7 @@
     display: inline-block;
     line-height: 0;
     position: relative;
-    background: var(--textPrm);
+    background: var(--theme-on-primary);
     transition: all 0.2s ease-out;
     &::before,
     &::after {
@@ -22,7 +25,7 @@
       width: 100%;
       display: block;
       position: absolute;
-      background: var(--textPrm);
+      background: var(--theme-on-primary);
       content: "";
     }
     &::before {
@@ -31,5 +34,27 @@
     &::after {
       top: -7px;
     }
+  }
+}
+
+button {
+  border: none;
+  border-radius: 2px;
+  padding: 12px 18px;
+  font-size: 16px;
+  text-transform: uppercase;
+  cursor: pointer;
+  color: white;
+  background-color: var(--theme-primary);
+  box-shadow: 0 0 4px var(--theme-secondary);
+  outline: none;
+  transition: filter 0.75s, box-shadow 0.5s;
+  &:hover{
+    filter: brightness(150%);
+    box-shadow: 0 0 4px 4px var(--theme-secondary);
+
+  }
+  &:active {
+    filter: invert(20%);
   }
 }

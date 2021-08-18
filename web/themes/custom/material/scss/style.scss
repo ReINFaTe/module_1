@@ -2,12 +2,12 @@
 
 @import "utils/variables";
 @import "utils/colors";
-
+@import "utils/mixins";
 //components
 @import "components/containers";
 @import "components/buttons";
 @import "components/menu";
-
+@import "components/form";
 
 //layout
 @import "layout/page";

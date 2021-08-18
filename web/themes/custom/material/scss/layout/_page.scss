@@ -4,8 +4,8 @@
 
 .layout-container {
   height: 100vh;
-  color: var(--textPrm);
-  text-shadow: var(--textAlt) 0 0 10px;
+  color: var(--theme-on-primary);
+  text-shadow: var(--theme-secondary) 0 0 10px;
   display: flex;
   flex-direction: column;
   align-items: stretch;
@@ -15,7 +15,9 @@
     --page-navigation-width: 0;
   }
   & > header {
-    background-color: black;
+    background-color: var(--theme-error);
+    color: var(--theme-on-error);
+
     flex: 0 1 auto;
   }
   .layout-site-navigation {
@@ -25,7 +27,8 @@
   }
   .layout-page-navigation {
     position: absolute;
-    background-color: var(--prmDark);
+    background-color: var(--theme-secondary);
+    color: var(--theme-on-secondary);
     grid-area: c;
     transform-origin: 0 0;
     width: var(--page-navigation-width);
@@ -38,7 +41,8 @@
   }
   .layout-content {
     min-height: 100%;
-    background-color: var(--prmLight);
+    background-color: var(--theme-surface);
+    color: var(--theme-on-surface);
     box-shadow: -6px 0px 10px -5px rgb(0 0 0 / 33%);
     position: relative;
     z-index: 90;

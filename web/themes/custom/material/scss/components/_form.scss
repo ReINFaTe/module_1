@@ -1,0 +1,66 @@
+form {
+  font-size: 1em;
+  .form-item {
+    position: relative;
+  }
+  input {
+    color: var(--theme-on-secondary);
+    width: 100%;
+    padding-top: 1em;
+    padding-left: 0.4em;
+    line-height: 2em;
+    border: none;
+    border-radius: 0 10px 0 0;
+    border-bottom: 3px solid var(--theme-on-secondary);
+    position: relative;
+    background: linear-gradient(to right, var(--theme-error), transparent 50%, var(--theme-secondary) 50%, transparent 100%) no-repeat 0 -50%;
+    background-position-x: 165%;
+    transition: all 0.5s;
+    background-size: 200% 100%;
+    &:hover {
+      background-position-x: 145%;
+    }
+    &:focus-visible {
+      outline: none;
+      border-bottom: 3px solid var(--theme-primary);
+      background-position-x: 100%;
+
+    }
+    &::placeholder{
+      visibility: hidden;
+      color: var(--theme-on-secondary);
+    }
+    &:not(:placeholder-shown):invalid{
+      border-bottom-color: var(--theme-error);
+      background-image: linear-gradient(to right, var(--theme-error), transparent 65%);
+      color: var(--theme-on-error);
+      background-position-x: 0;
+      & ~ label {
+        color: var(--theme-on-error);
+      }
+    }
+    &:invalid ~ .description {
+      opacity: 1;
+    }
+  }
+  input:focus + label, input:not(:placeholder-shown) + label {
+    opacity:1;
+    transform: scale(0.9) translateY(-75%);
+  }
+  label {
+    position: absolute;
+    line-height: 2em;
+    padding-left: 0.4em;
+    top: 1em;
+    left: 0;
+    transition: all 0.5s;
+    &:hover {
+      cursor: text;
+    }
+    color: var(--text-color);
+  }
+  .description {
+    color: var(--text-color);
+    opacity: 0.5;
+  }
+}

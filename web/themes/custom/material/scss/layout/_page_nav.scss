@@ -19,13 +19,12 @@
           transition: stroke-dashoffset 1.5s cubic-bezier(.39,-0.04,.37,.85);
           stroke-dasharray: 2000;
           stroke-dashoffset: 2000;
-          stroke: var(--prm900);
+          stroke: var(--theme-on-secondary);
           stroke-width: 20px;
           fill: currentColor;
         }
       }
       &:hover {
-        background-color: var(--prm);
         svg {
           path {
             stroke-dashoffset: 0;

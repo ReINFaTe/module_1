@@ -24,11 +24,11 @@ class AddCatForm extends FormBase {
     $form['cat_name'] = [
       '#type' => 'textfield',
       '#title' => $this->t("Cat name"),
-      '#title_display' => 'before',
+      '#title_display' => 'after',
       '#description' => $this->t("should be in the range of 2 and 32 symbols"),
       '#placeholder' => $this->t("Your cat's name"),
       '#required' => TRUE,
-      '#pattern' => '[0-9A-Za-zА-Яа-яіІїЇ`\']{2,32}',
+      '#pattern' => '^(?!\s*$)[0-9A-Za-zА-Яа-яіІїЇ`\' ]{2,32}$',
       '#attributes' => [
         'autocomplete' => 'off',
       ],
@@ -36,6 +36,7 @@ class AddCatForm extends FormBase {
     $form['submit'] = [
       '#type' => 'submit',
       '#value' => $this->t("Add cat"),
+      '#button_type' => 'primary',
     ];
     return $form;
   }

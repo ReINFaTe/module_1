@@ -4,5 +4,5 @@
  */
 function material_preprocess_html(&$variables)
 {
-  $variables['html_attributes']['data-theme'] = 'blue';
+  $variables['html_attributes']['data-theme'] = 'Light';
 }

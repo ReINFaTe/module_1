@@ -6,3 +6,16 @@ html[data-theme='blue'] {
   --textPrm: #ffffff;
   --textAlt: #000000;
 }
+
+
+html[data-theme='Light'] {
+  --theme-primary: #6200ee;
+  --theme-on-primary: #ffffff;
+  --theme-secondary: #03dac6;
+  --theme-on-secondary: #000000;
+  --theme-error: #b00020;
+  --theme-on-error: #ffffff;
+  --theme-surface: #ffffff;
+  --theme-on-surface: #000000;
+  --theme-background: #ffffff;
+}

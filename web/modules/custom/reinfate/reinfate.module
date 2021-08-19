@@ -17,8 +17,5 @@ function reinfate_theme($existing, $type, $theme, $path) : array {
         'form' => NULL,
       ],
     ],
-    'reinfate-form' => [
-      'render element' => 'form',
-    ],
   ];
 }

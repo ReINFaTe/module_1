@@ -11,8 +11,12 @@ ul.menu {
     text-decoration: none;
     font-size: 1.5em;
     transition: all 0.5s;
+    position: relative;
     &:hover{
       filter: brightness(150%);
+    }
+    &:active {
+      filter: invert(20%);
     }
   }
 }

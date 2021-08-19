@@ -29,51 +29,7 @@ html[data-theme=Light] {
   padding: var(--padding-md) var(--padding-lg);
 }
 
-.menu-button {
-  padding: 28px 20px;
-  position: relative;
-  background-color: var(--theme-primary);
-  border: none;
-  -webkit-transition: all 0.75s;
-  -o-transition: all 0.75s;
-  transition: all 0.75s;
-}
-.menu-button:hover {
-  -webkit-filter: brightness(150%);
-          filter: brightness(150%);
-}
-.menu-button:active {
-  -webkit-filter: invert(20%);
-          filter: invert(20%);
-}
-.menu-button span {
-  text-align: center;
-  height: 3px;
-  width: 23px;
-  display: inline-block;
-  line-height: 0;
-  position: relative;
-  background: var(--theme-on-primary);
-  -webkit-transition: all 0.2s ease-out;
-  -o-transition: all 0.2s ease-out;
-  transition: all 0.2s ease-out;
-}
-.menu-button span::before, .menu-button span::after {
-  height: 100%;
-  width: 100%;
-  display: block;
-  position: absolute;
-  background: var(--theme-on-primary);
-  content: "";
-}
-.menu-button span::before {
-  top: 7px;
-}
-.menu-button span::after {
-  top: -7px;
-}
-
-button {
+.layout-container button {
   border: none;
   border-radius: 2px;
   padding: 12px 18px;
@@ -91,15 +47,57 @@ button {
   transition: filter 0.75s, box-shadow 0.5s;
   transition: filter 0.75s, box-shadow 0.5s, -webkit-filter 0.75s, -webkit-box-shadow 0.5s;
 }
-button:hover {
+.layout-container button:hover {
   -webkit-filter: brightness(150%);
           filter: brightness(150%);
   -webkit-box-shadow: 0 0 4px 4px var(--theme-secondary);
           box-shadow: 0 0 4px 4px var(--theme-secondary);
 }
-button:active {
+.layout-container button:active {
   -webkit-filter: invert(20%);
           filter: invert(20%);
+}
+.layout-container .menu-button {
+  position: relative;
+  background-color: var(--theme-primary);
+  border: none;
+  -webkit-transition: all 0.75s;
+  -o-transition: all 0.75s;
+  transition: all 0.75s;
+}
+.layout-container .menu-button:hover {
+  -webkit-filter: brightness(150%);
+          filter: brightness(150%);
+}
+.layout-container .menu-button:active {
+  -webkit-filter: invert(20%);
+          filter: invert(20%);
+}
+.layout-container .menu-button span {
+  text-align: center;
+  height: 3px;
+  width: 23px;
+  display: inline-block;
+  line-height: 0;
+  position: relative;
+  background: var(--theme-on-primary);
+  -webkit-transition: all 0.2s ease-out;
+  -o-transition: all 0.2s ease-out;
+  transition: all 0.2s ease-out;
+}
+.layout-container .menu-button span::before, .layout-container .menu-button span::after {
+  height: 100%;
+  width: 100%;
+  display: block;
+  position: absolute;
+  background: var(--theme-on-primary);
+  content: "";
+}
+.layout-container .menu-button span::before {
+  top: 7px;
+}
+.layout-container .menu-button span::after {
+  top: -7px;
 }
 
 ul.menu {
@@ -117,10 +115,15 @@ ul.menu a {
   -webkit-transition: all 0.5s;
   -o-transition: all 0.5s;
   transition: all 0.5s;
+  position: relative;
 }
 ul.menu a:hover {
   -webkit-filter: brightness(150%);
           filter: brightness(150%);
+}
+ul.menu a:active {
+  -webkit-filter: invert(20%);
+          filter: invert(20%);
 }
 
 form {
@@ -245,11 +248,11 @@ form .description {
 }
 
 .dialog-off-canvas-main-canvas {
-  min-height: 100vh;
+  min-height: calc(100% - 1px);
 }
 
 .layout-container {
-  height: 100vh;
+  height: 100%;
   color: var(--theme-on-primary);
   text-shadow: var(--theme-secondary) 0 0 10px;
   display: -webkit-box;
@@ -266,14 +269,13 @@ form .description {
       -ms-flex-align: stretch;
           align-items: stretch;
   justify-items: stretch;
+  --site-navigation-height: 76px;
   --page-navigation-width: 200px;
 }
 .layout-container.no-page-nav {
   --page-navigation-width: 0;
 }
 .layout-container > header {
-  background-color: var(--theme-error);
-  color: var(--theme-on-error);
   -webkit-box-flex: 0;
   -webkit-flex: 0 1 auto;
       -ms-flex: 0 1 auto;
@@ -282,13 +284,9 @@ form .description {
 .layout-container .layout-site-navigation {
   position: relative;
   z-index: 100;
-  -webkit-box-flex: 0;
-  -webkit-flex: 0 1 auto;
-      -ms-flex: 0 1 auto;
-          flex: 0 1 auto;
+  height: var(--site-navigation-height);
 }
 .layout-container .layout-page-navigation {
-  position: absolute;
   background-color: var(--theme-secondary);
   color: var(--theme-on-secondary);
   grid-area: c;
@@ -305,6 +303,12 @@ form .description {
   -webkit-flex: 1 1 auto;
       -ms-flex: 1 1 auto;
           flex: 1 1 auto;
+  position: relative;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  width: 100vw;
 }
 .layout-container .layout-content {
   min-height: 100%;
@@ -317,7 +321,6 @@ form .description {
   -webkit-transition: left 0.7s;
   -o-transition: left 0.7s;
   transition: left 0.7s;
-  left: calc(var(--page-navigation-width) + 10px);
   width: calc(100% - var(--page-navigation-width) - 10px);
 }
 .layout-container.page-nav-min {
@@ -325,9 +328,6 @@ form .description {
 }
 .layout-container.page-nav-min .layout-page-navigation {
   border-bottom-right-radius: 0;
-}
-.layout-container.page-nav-min .layout-content {
-  left: calc(var(--page-navigation-width));
 }
 
 *, ::before, ::after {
@@ -338,6 +338,10 @@ form .description {
 html {
   background-color: var(--prmLight);
   overflow-x: hidden;
+}
+
+html, body {
+  height: 100%;
 }
 
 h1, h2, h3, h4, h5, h5 {
@@ -373,16 +377,25 @@ a {
 }
 
 .layout-page-navigation {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  bottom: 0;
   -webkit-transition: all 0.75s;
   -o-transition: all 0.75s;
   transition: all 0.75s;
 }
-.layout-page-navigation button {
-  margin-top: auto;
-  position: fixed;
+.layout-page-navigation .menu-button {
   width: var(--page-navigation-width);
   border-top-right-radius: 40px;
-  bottom: 0;
+  padding: 28px 20px;
+  margin-top: auto;
 }
 .layout-page-navigation li a svg {
   text-align: center;

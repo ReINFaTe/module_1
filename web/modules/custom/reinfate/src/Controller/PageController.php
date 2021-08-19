@@ -13,7 +13,7 @@ class PageController extends ControllerBase {
    * Builds the response.
    */
   public function build(): array {
-    $form = \Drupal::formBuilder()->getForm('Drupal\reinfate\Form\AddCatForm');
+    $form = \Drupal::formBuilder()->getForm('Drupal\reinfate\Form\NewCatForm');
     $build['content'] = [
       '#theme' => 'reinfate-page',
       '#title' => $this->t('Hello!'),

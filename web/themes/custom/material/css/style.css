@@ -126,11 +126,34 @@ ul.menu a:active {
           filter: invert(20%);
 }
 
+.form-messages {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  min-width: 35vw;
+}
+.form-messages .messages {
+  -webkit-transition: -webkit-transform 1s ease-in-out;
+  transition: -webkit-transform 1s ease-in-out;
+  -o-transition: -o-transform 1s ease-in-out;
+  transition: transform 1s ease-in-out;
+  transition: transform 1s ease-in-out, -webkit-transform 1s ease-in-out, -o-transform 1s ease-in-out;
+  -webkit-transform: translateX(calc(100% + 30px));
+       -o-transform: translateX(calc(100% + 30px));
+          transform: translateX(calc(100% + 30px));
+}
+.form-messages .messages.active {
+  -webkit-transform: translateX(0);
+       -o-transform: translateX(0);
+          transform: translateX(0);
+}
+
 form {
   font-size: 1em;
 }
 form .form-item {
   position: relative;
+  margin-bottom: 1em;
 }
 form input {
   color: var(--theme-on-secondary);
@@ -147,9 +170,10 @@ form input {
   background: -o-linear-gradient(left, var(--theme-error), transparent 50%, var(--theme-secondary) 50%, transparent 100%) no-repeat 0 -50%;
   background: linear-gradient(to right, var(--theme-error), transparent 50%, var(--theme-secondary) 50%, transparent 100%) no-repeat 0 -50%;
   background-position-x: 165%;
-  -webkit-transition: all 0.5s;
-  -o-transition: all 0.5s;
-  transition: all 0.5s;
+  -webkit-transition: color 0.8s, background-position 0.8s ease-out;
+  -o-transition: color 0.8s, background-position 0.8s ease-out;
+  transition: color 0.8s, background-position 0.8s ease-out;
+  margin-bottom: 0.3em;
   -webkit-background-size: 200% 100%;
           background-size: 200% 100%;
 }
@@ -211,7 +235,19 @@ form input:not(:-ms-input-placeholder):invalid ~ label {
 form input:not(:placeholder-shown):invalid ~ label {
   color: var(--theme-on-error);
 }
-form input:invalid ~ .description {
+form input.erroridk {
+  border-bottom-color: var(--theme-error);
+  background-image: -webkit-gradient(linear, left top, right top, from(var(--theme-error)), color-stop(65%, transparent));
+  background-image: -webkit-linear-gradient(left, var(--theme-error), transparent 65%);
+  background-image: -o-linear-gradient(left, var(--theme-error), transparent 65%);
+  background-image: linear-gradient(to right, var(--theme-error), transparent 65%);
+  color: var(--theme-on-error);
+  background-position-x: 0;
+}
+form input.erroridk ~ label {
+  color: var(--theme-on-error);
+}
+form input.erroridk ~ .description {
   opacity: 1;
 }
 form input:not(:-moz-placeholder-shown) + label {
@@ -244,6 +280,7 @@ form label:hover {
 }
 form .description {
   color: var(--text-color);
+  margin-left: 0.5em;
   opacity: 0.5;
 }
 

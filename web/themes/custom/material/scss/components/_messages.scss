@@ -1,0 +1,13 @@
+.form-messages {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  min-width: 35vw;
+  .messages {
+    transition: transform 1s ease-in-out;
+    transform: translateX(calc(100% + 30px));
+    &.active {
+      transform: translateX(0);
+    }
+  }
+}

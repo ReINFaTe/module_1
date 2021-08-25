@@ -2,6 +2,7 @@ form {
   font-size: 1em;
   .form-item {
     position: relative;
+    margin-bottom: 1em;
   }
   input {
     color: var(--theme-on-secondary);
@@ -15,7 +16,8 @@ form {
     position: relative;
     background: linear-gradient(to right, var(--theme-error), transparent 50%, var(--theme-secondary) 50%, transparent 100%) no-repeat 0 -50%;
     background-position-x: 165%;
-    transition: all 0.5s;
+    transition: color 0.8s, background-position 0.8s ease-out;
+    margin-bottom: 0.3em;
     background-size: 200% 100%;
     &:hover {
       background-position-x: 145%;
@@ -39,7 +41,16 @@ form {
         color: var(--theme-on-error);
       }
     }
-    &:invalid ~ .description {
+    &.erroridk{
+      border-bottom-color: var(--theme-error);
+      background-image: linear-gradient(to right, var(--theme-error), transparent 65%);
+      color: var(--theme-on-error);
+      background-position-x: 0;
+      & ~ label {
+        color: var(--theme-on-error);
+      }
+    }
+    &.erroridk ~ .description {
       opacity: 1;
     }
   }
@@ -61,6 +72,7 @@ form {
   }
   .description {
     color: var(--text-color);
+    margin-left: 0.5em;
     opacity: 0.5;
   }
 }

@@ -4,6 +4,8 @@ global-styling:
       css/style.min.css: {}
   js:
     js/page_nav.js: {}
+    js/messages.js: {}
+    js/form.js: {}
   dependencies:
     - core/drupal
     - core/drupal.message

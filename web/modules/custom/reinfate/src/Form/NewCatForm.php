@@ -3,6 +3,7 @@
 namespace Drupal\reinfate\Form;
 
 use Drupal\Core\Ajax\AjaxResponse;
+use Drupal\Core\Ajax\MessageCommand;
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -64,6 +65,9 @@ class NewCatForm extends FormBase {
       '#type' => 'submit',
       '#value' => $this->t("Add cat"),
       '#button_type' => 'primary',
+      '#ajax' => [
+        'callback' => '::submitAjax',
+      ],
     ];
     return $form;
   }
@@ -86,6 +90,24 @@ class NewCatForm extends FormBase {
   public function submitForm(array &$form, FormStateInterface $form_state) {
     // @todo Implement submitForm() method.
     $this->messenger->addMessage($this->t("Cat submitted"));
+  }
+
+  /**
+   * Ajax submitting.
+   */
+  public function submitAjax(array &$form, FormStateInterface $form_state) {
+    $response = new AjaxResponse();
+    if ($form_state->getErrors()) {
+      foreach ($form_state->getErrors() as $err) {
+        $response->addCommand(new MessageCommand($err, NULL, ['type' => 'error'], FALSE));
+      }
+      $form_state->clearErrors();
+    }
+    else {
+      $response->addCommand(new MessageCommand('Your changes have been saved.'));
+    }
+    $this->messenger->deleteAll();
+    return $response;
   }
 
 }

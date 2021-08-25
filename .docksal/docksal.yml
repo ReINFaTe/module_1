@@ -15,7 +15,9 @@ services:
     #   - ${MYSQL_PORT_MAPPING};
     volumes:
       - ${PROJECT_ROOT}/db:/docker-entrypoint-initdb.d:ro
-
+#  web:
+#    ports:
+#      - 8000:80
 #  #Xhprof
 #  xhprof:
 #    hostname: xhprof

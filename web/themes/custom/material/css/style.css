@@ -294,7 +294,6 @@ form .description {
        -o-transform-origin: 0 0;
           transform-origin: 0 0;
   width: var(--page-navigation-width);
-  border-bottom-right-radius: 20px;
   overflow: hidden;
   z-index: 0;
 }

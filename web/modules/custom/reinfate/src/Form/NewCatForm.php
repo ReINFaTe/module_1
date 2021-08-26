@@ -2,6 +2,7 @@
 
 namespace Drupal\reinfate\Form;
 
+use Drupal\file\Entity\File;
 use Drupal\Core\Ajax\AjaxResponse;
 use Drupal\Core\Ajax\InvokeCommand;
 use Drupal\Core\Ajax\MessageCommand;
@@ -63,7 +64,7 @@ class NewCatForm extends FormBase {
     ];
     $form['email'] = [
       '#type' => 'email',
-      '#title' => $this->t('Your email'),
+      '#title' => $this->t('Email'),
       '#title_display' => 'after',
       '#description' => $this->t("Only latin characters and -, _"),
       '#placeholder' => $this->t("Your email"),
@@ -78,6 +79,18 @@ class NewCatForm extends FormBase {
           'type' => 'none',
           'message' => $this->t('Verifying entry...'),
         ],
+      ],
+    ];
+    $form['cat_image'] = [
+      '#type' => 'managed_file',
+      '#title' => $this->t('Cat picture'),
+      '#title_display' => 'none',
+      '#description' => $this->t("Picture of your cat in png, jpg or jpeg format"),
+      '#upload_location' => 'public://cat_images',
+      '#required' => TRUE,
+      '#upload_validators' => [
+        'file_validate_extensions' => ['png jpg jpeg'],
+        'file_validate_size' => [2097152],
       ],
     ];
     $form['submit'] = [
@@ -130,8 +143,14 @@ class NewCatForm extends FormBase {
 
   /**
    * {@inheritDoc}
+   *
+   * @throws \Drupal\Core\Entity\EntityStorageException
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
+    $file_data = $form_state->getValue(['cat_image']);
+    $file = File::load($file_data[0]);
+    $file->setPermanent();
+    $file->save();
     $this->messenger->addMessage($this->t("Cat submitted"));
   }
 
@@ -140,6 +159,7 @@ class NewCatForm extends FormBase {
    */
   public function submitAjax(array &$form, FormStateInterface $form_state) {
     $response = new AjaxResponse();
+    $response->addCommand(new InvokeCommand('.reinfate-newcatform input', 'removeClass', ['error']));
     if ($form_state->getErrors()) {
       foreach ($form_state->getErrors() as $field => $err) {
         $response->addCommand(new MessageCommand($err, '.reinfate-NewCatForm-messages', ['type' => 'error'], FALSE));

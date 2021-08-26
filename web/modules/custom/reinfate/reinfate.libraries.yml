@@ -1,0 +1,4 @@
+global-styling:
+  js:
+    js/ajaxBeforeSend.js: {}
+

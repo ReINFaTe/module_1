@@ -19,3 +19,10 @@ function reinfate_theme($existing, $type, $theme, $path) : array {
     ],
   ];
 }
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ */
+function reinfate_form_reinfate_NewCatForm_alter(&$form, \Drupal\Core\Form\FormStateInterface $form_state, $form_id) {
+  $form['#attached']['library'][] = 'reinfate/global-styling';
+}

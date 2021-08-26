@@ -3,9 +3,8 @@
 namespace Drupal\reinfate\Form;
 
 use Drupal\Core\Ajax\AjaxResponse;
-use Drupal\Core\Ajax\HtmlCommand;
+use Drupal\Core\Ajax\InvokeCommand;
 use Drupal\Core\Ajax\MessageCommand;
-use Drupal\Core\Ajax\ReplaceCommand;
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -57,9 +56,28 @@ class NewCatForm extends FormBase {
       '#description' => $this->t("should be in the range of 2 and 32 symbols"),
       '#placeholder' => $this->t("Your cat's name"),
       '#required' => TRUE,
-      // '#pattern' => '^(?!\s*$)[0-9A-Za-zА-Яа-яіІїЇ`\' ]{2,32}$',
+     // '#pattern' => '^(?!\s*$)[0-9A-Za-zА-Яа-яіІїЇ`\' ]{2,32}$',
       '#attributes' => [
         'autocomplete' => 'off',
+      ],
+    ];
+    $form['email'] = [
+      '#type' => 'email',
+      '#title' => $this->t('Your email'),
+      '#title_display' => 'after',
+      '#description' => $this->t("Only latin characters and -, _"),
+      '#placeholder' => $this->t("Your email"),
+      '#required' => TRUE,
+      '#attributes' => [
+        'novalidate' => 'novalidate',
+      ],
+      '#ajax' => [
+        'callback' => '::validateEmail',
+        'event' => 'keyup',
+        'progress' => [
+          'type' => 'none',
+          'message' => $this->t('Verifying entry...'),
+        ],
       ],
     ];
     $form['submit'] = [
@@ -77,6 +95,25 @@ class NewCatForm extends FormBase {
       ],
     ];
     return $form;
+  }
+
+  /**
+   * Validating for email field.
+   */
+  public function validateEmail(array &$form, FormStateInterface $form_state) {
+    // @todo FIX
+    $regex = '/[^\w_\-@\.]+/';
+    $response = new AjaxResponse();
+    if (preg_match($regex, $form_state->getValue('email'))) {
+      $response->addCommand(new MessageCommand(
+        $this->t("Only latin characters and -, _ are allowed"), '.reinfate-NewCatForm-messages', ['type' => 'error'], TRUE
+      ));
+      $response->addCommand(new InvokeCommand('.reinfate-newcatform .form-email', 'addClass', ['error']));
+    }
+    else {
+      $response->addCommand(new InvokeCommand('.reinfate-newcatform  .form-email', 'removeClass', ['error']));
+    }
+    return $response;
   }
 
   /**
@@ -104,8 +141,11 @@ class NewCatForm extends FormBase {
   public function submitAjax(array &$form, FormStateInterface $form_state) {
     $response = new AjaxResponse();
     if ($form_state->getErrors()) {
-      foreach ($form_state->getErrors() as $err) {
+      foreach ($form_state->getErrors() as $field => $err) {
         $response->addCommand(new MessageCommand($err, '.reinfate-NewCatForm-messages', ['type' => 'error'], FALSE));
+        $selector = strtr('.reinfate-newcatform .form-item-@field input', ['@field' => $field]);
+        $selector = strtr($selector, ['_' => '-']);
+        $response->addCommand(new InvokeCommand($selector, 'addClass', ['error']));
       }
       $form_state->clearErrors();
     }

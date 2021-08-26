@@ -205,19 +205,7 @@ form input::placeholder {
   visibility: hidden;
   color: var(--theme-on-secondary);
 }
-form input:not(:-moz-placeholder-shown):invalid {
-  border-bottom-color: var(--theme-error);
-  background-image: linear-gradient(to right, var(--theme-error), transparent 65%);
-  color: var(--theme-on-error);
-  background-position-x: 0;
-}
-form input:not(:-ms-input-placeholder):invalid {
-  border-bottom-color: var(--theme-error);
-  background-image: linear-gradient(to right, var(--theme-error), transparent 65%);
-  color: var(--theme-on-error);
-  background-position-x: 0;
-}
-form input:not(:placeholder-shown):invalid {
+form input.error {
   border-bottom-color: var(--theme-error);
   background-image: -webkit-gradient(linear, left top, right top, from(var(--theme-error)), color-stop(65%, transparent));
   background-image: -webkit-linear-gradient(left, var(--theme-error), transparent 65%);
@@ -226,28 +214,10 @@ form input:not(:placeholder-shown):invalid {
   color: var(--theme-on-error);
   background-position-x: 0;
 }
-form input:not(:-moz-placeholder-shown):invalid ~ label {
+form input.error ~ label {
   color: var(--theme-on-error);
 }
-form input:not(:-ms-input-placeholder):invalid ~ label {
-  color: var(--theme-on-error);
-}
-form input:not(:placeholder-shown):invalid ~ label {
-  color: var(--theme-on-error);
-}
-form input.erroridk {
-  border-bottom-color: var(--theme-error);
-  background-image: -webkit-gradient(linear, left top, right top, from(var(--theme-error)), color-stop(65%, transparent));
-  background-image: -webkit-linear-gradient(left, var(--theme-error), transparent 65%);
-  background-image: -o-linear-gradient(left, var(--theme-error), transparent 65%);
-  background-image: linear-gradient(to right, var(--theme-error), transparent 65%);
-  color: var(--theme-on-error);
-  background-position-x: 0;
-}
-form input.erroridk ~ label {
-  color: var(--theme-on-error);
-}
-form input.erroridk ~ .description {
+form input.error ~ .description {
   opacity: 1;
 }
 form input:not(:-moz-placeholder-shown) + label {

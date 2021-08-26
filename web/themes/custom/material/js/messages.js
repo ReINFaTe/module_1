@@ -3,7 +3,7 @@
     attach: function (context, settings) {
       $('.form-messages .messages', context).each(
         function () {
-          $(this).once('displayed').toggleClass('active');
+          $(this).once('displayed').addClass('active');
           setTimeout(() => {
             $(this).slideUp(1000);
           }, 5000);

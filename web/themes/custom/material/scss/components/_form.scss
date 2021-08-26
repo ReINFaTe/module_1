@@ -32,7 +32,16 @@ form {
       visibility: hidden;
       color: var(--theme-on-secondary);
     }
-    &:not(:placeholder-shown):invalid{
+    //&:not(:placeholder-shown):invalid{
+    //  border-bottom-color: var(--theme-error);
+    //  background-image: linear-gradient(to right, var(--theme-error), transparent 65%);
+    //  color: var(--theme-on-error);
+    //  background-position-x: 0;
+    //  & ~ label {
+    //    color: var(--theme-on-error);
+    //  }
+    //}
+    &.error{
       border-bottom-color: var(--theme-error);
       background-image: linear-gradient(to right, var(--theme-error), transparent 65%);
       color: var(--theme-on-error);
@@ -41,16 +50,7 @@ form {
         color: var(--theme-on-error);
       }
     }
-    &.erroridk{
-      border-bottom-color: var(--theme-error);
-      background-image: linear-gradient(to right, var(--theme-error), transparent 65%);
-      color: var(--theme-on-error);
-      background-position-x: 0;
-      & ~ label {
-        color: var(--theme-on-error);
-      }
-    }
-    &.erroridk ~ .description {
+    &.error ~ .description {
       opacity: 1;
     }
   }

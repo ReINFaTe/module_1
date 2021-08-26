@@ -1,0 +1,47 @@
+<?php
+
+/**
+ * @file
+ * Install function for the reinfate module.
+ */
+
+/**
+ * Implements hook_schema().
+ */
+function reinfate_schema() {
+  $schema['reinfate'] = [
+    'description' => 'Reinfate module submitted cats.',
+    'fields' => [
+      'id' => [
+        'description' => 'Primary Key: Unique record ID.',
+        'type' => 'serial',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+      ],
+      'cat_name' => [
+        'description' => 'Cat name.',
+        'type' => 'varchar',
+        'length' => 32,
+        'not null' => TRUE,
+      ],
+      'email' => [
+        'description' => 'Email.',
+        'type' => 'int',
+        'not null' => TRUE,
+      ],
+      'cat_picture' => [
+        'description' => 'Picture ID of a cat.',
+        'type' => 'int',
+        'not null' => TRUE,
+      ],
+      'created' => [
+        'description' => 'Timestamp when the record was created.',
+        'type' => 'int',
+        'not null' => TRUE,
+      ],
+    ],
+    'primary key' => ['id'],
+  ];
+
+  return $schema;
+}

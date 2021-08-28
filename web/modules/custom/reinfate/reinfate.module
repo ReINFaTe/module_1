@@ -5,6 +5,8 @@
  * Implements hook_theme().
  */
 
+use Drupal\Core\Form\FormStateInterface;
+
 /**
  * Register template files.
  */
@@ -15,6 +17,15 @@ function reinfate_theme($existing, $type, $theme, $path) : array {
         'title' => NULL,
         'text' => NULL,
         'form' => NULL,
+        'cats' => NULL,
+      ],
+    ],
+    'reinfate-cat-block' => [
+      'variables' => [
+        'cat_name' => NULL,
+        'email' => NULL,
+        'cat_picture' => NULL,
+        'created' => NULL,
       ],
     ],
   ];
@@ -23,6 +34,6 @@ function reinfate_theme($existing, $type, $theme, $path) : array {
 /**
  * Implements hook_form_FORM_ID_alter().
  */
-function reinfate_form_reinfate_NewCatForm_alter(&$form, \Drupal\Core\Form\FormStateInterface $form_state, $form_id) {
+function reinfate_form_reinfate_NewCatForm_alter(&$form, FormStateInterface $form_state, $form_id) {
   $form['#attached']['library'][] = 'reinfate/global-styling';
 }

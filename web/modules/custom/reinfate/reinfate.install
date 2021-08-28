@@ -26,7 +26,8 @@ function reinfate_schema() {
       ],
       'email' => [
         'description' => 'Email.',
-        'type' => 'int',
+        'type' => 'varchar',
+        'length' => 32,
         'not null' => TRUE,
       ],
       'cat_picture' => [

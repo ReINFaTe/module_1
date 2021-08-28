@@ -30,12 +30,20 @@ class NewCatForm extends FormBase {
   protected $t;
 
   /**
+   * Drupal\Core\Database\ definition.
+   *
+   * @var \Drupal\Core\Database\
+   */
+  protected $database;
+
+  /**
    * {@inheritDoc}
    */
   public static function create(ContainerInterface $container): NewCatForm {
     $instance = parent::create($container);
     $instance->t = $container->get('string_translation');
     $instance->messenger = $container->get('messenger');
+    $instance->database = $container->get('database');
     return $instance;
   }
 
@@ -81,7 +89,7 @@ class NewCatForm extends FormBase {
         ],
       ],
     ];
-    $form['cat_image'] = [
+    $form['cat_picture'] = [
       '#type' => 'managed_file',
       '#title' => $this->t('Cat picture'),
       '#title_display' => 'none',
@@ -114,7 +122,6 @@ class NewCatForm extends FormBase {
    * Validating for email field.
    */
   public function validateEmail(array &$form, FormStateInterface $form_state) {
-    // @todo FIX
     $regex = '/[^\w_\-@\.]+/';
     $response = new AjaxResponse();
     if (preg_match($regex, $form_state->getValue('email'))) {
@@ -147,10 +154,19 @@ class NewCatForm extends FormBase {
    * @throws \Drupal\Core\Entity\EntityStorageException
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
-    $file_data = $form_state->getValue(['cat_image']);
+    $file_data = $form_state->getValue(['cat_picture']);
     $file = File::load($file_data[0]);
     $file->setPermanent();
     $file->save();
+    $this->database
+      ->insert('reinfate')
+      ->fields([
+        'cat_name' => $form_state->getValue('cat_name'),
+        'email' => $form_state->getValue('email'),
+        'cat_picture' => $form_state->getValue(['cat_picture'])[0],
+        'created' => time(),
+      ])
+      ->execute();
     $this->messenger->addMessage($this->t("Cat submitted"));
   }
 
@@ -160,7 +176,7 @@ class NewCatForm extends FormBase {
   public function submitAjax(array &$form, FormStateInterface $form_state) {
     $response = new AjaxResponse();
     $response->addCommand(new InvokeCommand('.reinfate-newcatform input', 'removeClass', ['error']));
-    if ($form_state->getErrors()) {
+    if ($form_state->hasAnyErrors()) {
       foreach ($form_state->getErrors() as $field => $err) {
         $response->addCommand(new MessageCommand($err, '.reinfate-NewCatForm-messages', ['type' => 'error'], FALSE));
         $selector = strtr('.reinfate-newcatform .form-item-@field input', ['@field' => $field]);

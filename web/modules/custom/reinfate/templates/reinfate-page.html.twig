@@ -2,9 +2,10 @@
 <p>{{ text }}</p>
 
 {{ form }}
-{% for cat in cats|reverse %}
-  <div>
+<div class="cats-list">
+  {% for cat in cats|reverse %}
     {{ cat }}
-  </div>
-{% endfor %}
+  {% endfor %}
+</div>
+
 

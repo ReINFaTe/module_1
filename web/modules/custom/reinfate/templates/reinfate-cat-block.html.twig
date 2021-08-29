@@ -1,4 +1,16 @@
-{{ cat_name }}
-{{ email }}
-{{ cat_picture }}
-{{ cat_created }}
+<div class="cat-block">
+  <div class="cat-picture">
+    {{ cat_picture }}
+  </div>
+  <div class="cat-info">
+    <div class="cat-email">
+      <p>{{ email }}</p>
+    </div>
+    <div class="cat-name">
+      <p>{{ cat_name }}</p>
+    </div>
+    <div class="cat-created">
+      <p>{{ created | date("d/F/Y G:i:s") }}</p>
+    </div>
+  </div>
+</div>

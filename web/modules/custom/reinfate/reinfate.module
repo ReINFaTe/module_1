@@ -28,6 +28,11 @@ function reinfate_theme($existing, $type, $theme, $path) : array {
         'created' => NULL,
       ],
     ],
+    'reinfate-cats-list' => [
+      'variables' => [
+        'cats' => NULL,
+      ],
+    ],
   ];
 }
 

@@ -1,11 +1,8 @@
 <h2>{{ title }}</h2>
 <p>{{ text }}</p>
-
 {{ form }}
-<div class="cats-list">
-  {% for cat in cats|reverse %}
-    {{ cat }}
-  {% endfor %}
-</div>
+
+<a href="{{ path('reinfate.catsListAjax', {'method': 'ajax'}) }}" class="use-ajax"> Refesh</a>
+{{ cats }}
 
 

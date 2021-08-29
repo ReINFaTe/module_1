@@ -2,12 +2,14 @@
 
 namespace Drupal\reinfate\Form;
 
+use Drupal\Core\Url;
 use Drupal\file\Entity\File;
 use Drupal\Core\Ajax\AjaxResponse;
 use Drupal\Core\Ajax\InvokeCommand;
 use Drupal\Core\Ajax\MessageCommand;
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\ajax_command\Ajax\AjaxCommand;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -187,6 +189,8 @@ class NewCatForm extends FormBase {
     }
     else {
       $response->addCommand(new MessageCommand('Your cat submitted.', '.reinfate-NewCatForm-messages'));
+      $url = Url::fromRoute("reinfate.catsListAjax", ["method" => "ajax"], ['absolute' => FALSE])->toString();
+      $response->addCommand(new AjaxCommand($url));
     }
     $this->messenger->deleteAll();
 

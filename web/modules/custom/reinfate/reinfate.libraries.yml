@@ -1,4 +1,5 @@
 global-styling:
   js:
     js/ajaxBeforeSend.js: {}
-
+  dependencies:
+    - ajax_command/ajaxCommand

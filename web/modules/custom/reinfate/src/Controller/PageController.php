@@ -2,6 +2,10 @@
 
 namespace Drupal\reinfate\Controller;
 
+use Drupal\Console\Command\Database\AddCommand;
+use Drupal\Core\Ajax\AjaxResponse;
+use Drupal\Core\Ajax\AppendCommand;
+use Drupal\Core\Ajax\ReplaceCommand;
 use Drupal\Core\Controller\ControllerBase;
 use Drupal\file\Entity\File;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -49,8 +53,17 @@ class PageController extends ControllerBase {
       '#form' => $form,
       '#cats' => $cats,
     ];
-
     return $build;
+  }
+
+  /**
+   * Ajax response for cats list.
+   */
+  public function catsListAjax() {
+    $response = new AjaxResponse();
+    $cats = $this->getCats();
+    $response->addCommand(new ReplaceCommand('.cats-list', $cats));
+    return $response;
   }
 
   /**
@@ -60,6 +73,7 @@ class PageController extends ControllerBase {
     $result = $this->database->query("SELECT cat_name, email, cat_picture, created FROM {reinfate}");
     $result = $result->fetchAll();
     $cats = [];
+    $catsRender = [];
     foreach ($result as $cat) {
       $cat->cat_picture = [
         '#theme' => 'image_style',
@@ -78,8 +92,12 @@ class PageController extends ControllerBase {
         '#created' => $cat->created,
       ];
       array_push($cats, $cat_render);
+      $catsRender = [
+        '#theme' => 'reinfate-cats-list',
+        '#cats' => $cats,
+      ];
     }
-    return $cats;
+    return $catsRender;
   }
 
 }

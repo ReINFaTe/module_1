@@ -1,0 +1,6 @@
+name: 'Ajax command'
+type: module
+description: Provides an Ajax Callback command to make client make another ajax request.
+package: other
+core: 8.x
+core_version_requirement: ^8 || ^9

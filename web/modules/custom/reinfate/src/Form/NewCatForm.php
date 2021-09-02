@@ -2,6 +2,7 @@
 
 namespace Drupal\reinfate\Form;
 
+use Drupal\Core\Ajax\ReplaceCommand;
 use Drupal\Core\Url;
 use Drupal\file\Entity\File;
 use Drupal\Core\Ajax\AjaxResponse;
@@ -111,12 +112,6 @@ class NewCatForm extends FormBase {
         'callback' => '::submitAjax',
       ],
     ];
-    $form['messages'] = [
-      '#type' => 'container',
-      '#attributes' => [
-        'class' => 'reinfate-NewCatForm-messages form-messages',
-      ],
-    ];
     return $form;
   }
 
@@ -148,6 +143,7 @@ class NewCatForm extends FormBase {
         $this->t("Cat name should be in the range of 2 and 32 symbols")
       );
     }
+
   }
 
   /**
@@ -177,23 +173,26 @@ class NewCatForm extends FormBase {
    */
   public function submitAjax(array &$form, FormStateInterface $form_state) {
     $response = new AjaxResponse();
-    $response->addCommand(new InvokeCommand('.reinfate-newcatform input', 'removeClass', ['error']));
+    $form_state->setRebuild(TRUE);
+    $response->addCommand(new ReplaceCommand('.reinfate-newcatform', $form));
+
     if ($form_state->hasAnyErrors()) {
-      foreach ($form_state->getErrors() as $field => $err) {
+      foreach ($form_state->getErrors() as $err) {
         $response->addCommand(new MessageCommand($err, '.reinfate-NewCatForm-messages', ['type' => 'error'], FALSE));
-        $selector = strtr('.reinfate-newcatform .form-item-@field input', ['@field' => $field]);
-        $selector = strtr($selector, ['_' => '-']);
-        $response->addCommand(new InvokeCommand($selector, 'addClass', ['error']));
       }
       $form_state->clearErrors();
     }
     else {
       $response->addCommand(new MessageCommand('Your cat submitted.', '.reinfate-NewCatForm-messages'));
-      $url = Url::fromRoute("reinfate.catsListAjax", ["method" => "ajax"], ['absolute' => FALSE])->toString();
+      $url = Url::fromRoute("reinfate.catsListAjax",
+        ["method" => "ajax"], ['absolute' => FALSE])->toString();
       $response->addCommand(new AjaxCommand($url));
+      $formUrl = Url::fromRoute("reinfate.catsFormAjax",
+        ["method" => "ajax"], ['absolute' => FALSE])->toString();
+      $response->addCommand(new AjaxCommand($formUrl));
     }
-    $this->messenger->deleteAll();
 
+    $this->messenger->deleteAll();
     return $response;
   }
 

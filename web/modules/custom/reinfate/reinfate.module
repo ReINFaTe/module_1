@@ -18,6 +18,7 @@ function reinfate_theme($existing, $type, $theme, $path) : array {
         'text' => NULL,
         'form' => NULL,
         'cats' => NULL,
+        'pager' => NULL,
       ],
     ],
     'reinfate-cat-block' => [
@@ -26,6 +27,16 @@ function reinfate_theme($existing, $type, $theme, $path) : array {
         'email' => NULL,
         'cat_picture' => NULL,
         'created' => NULL,
+        'catId' => NULL,
+      ],
+    ],
+    'reinfate-cat-full' => [
+      'variables' => [
+        'cat_name' => NULL,
+        'email' => NULL,
+        'cat_picture' => NULL,
+        'created' => NULL,
+        'catId' => NULL,
       ],
     ],
     'reinfate-cats-list' => [

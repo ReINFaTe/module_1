@@ -1,0 +1,18 @@
+<div class="cat-full">
+  <div class="cat-picture">
+    {{ cat_picture }}
+  </div>
+  <div class="cat-info">
+    <div class="cat-email">
+      <p class="label">{{ 'email'|t }}</p>
+      <p>{{ email }}</p>
+    </div>
+    <div class="cat-name">
+      <p>{{ cat_name }}</p>
+    </div>
+    <div class="cat-created">
+      <p class="label">{{ 'Submitted'|t }}</p>
+      <p>{{ created | date("d/F/Y G:i:s") }}</p>
+    </div>
+  </div>
+</div>

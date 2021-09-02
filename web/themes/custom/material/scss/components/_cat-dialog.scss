@@ -1,0 +1,46 @@
+.cat-dialog.ui-dialog {
+  box-shadow: 0 11px 15px -7px rgb(0 0 0 / 20%), 0px 24px 38px 3px rgb(0 0 0 / 14%), 0px 9px 46px 8px rgb(0 0 0 / 12%);
+  border: none;
+  border-radius: 10px;
+  overflow: hidden;
+  .ui-dialog-titlebar {
+    background-color: var(--theme-primary);
+    color: var(--theme-on-primary);
+    .ui-dialog-titlebar-close {
+      .ui-button-icon {
+        transition: transform 0.2s ease-in-out;
+        background-image: url("/core/assets/vendor/jquery.ui/themes/base/images/ui-icons_ffffff_256x240.png");
+        &:hover {
+          background-image: url("/core/assets/vendor/jquery.ui/themes/base/images/ui-icons_555555_256x240.png");
+        }
+        &:active {
+          background-image: url("/core/assets/vendor/jquery.ui/themes/base/images/ui-icons_ffffff_256x240.png");
+          transform: rotate3d(0,1,0, 45deg) scale(1.1);
+        }
+      }
+    }
+  }
+  .ui-dialog-content {
+    background-color: var(--theme-surface);
+  }
+  //&::before {
+    //  content: '';
+  //  display: block;
+  //  position: fixed;
+  //  height: 100vh;
+  //  width: 100vw;
+  //  top: 0;
+  //  left: 0;
+  //  background-color: black;
+  //  opacity: 0.5;
+  //}
+}
+.ui-widget-overlay {
+  background: black;
+  transition: opacity 0.4s ease-in-out;
+  opacity: 0.5;
+  cursor: pointer;
+  &:hover {
+    opacity: 0.2;
+  }
+}

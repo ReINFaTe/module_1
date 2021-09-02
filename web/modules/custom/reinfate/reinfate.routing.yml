@@ -13,3 +13,19 @@ reinfate.catsListAjax:
   requirements:
     _permission: 'access content'
     method: 'nojs|ajax'
+
+reinfate.catDetailsAjax:
+  path: '/reinfate/cats/{method}/catDetails/{id}'
+  defaults:
+    _controller: '\Drupal\reinfate\Controller\PageController::catDetailsAjax'
+  requirements:
+    _permission: 'access content'
+    method: 'nojs|ajax'
+
+reinfate.catsFormAjax:
+  path: '/reinfate/cats/{method}/catsForm'
+  defaults:
+    _controller: '\Drupal\reinfate\Controller\PageController::catsFormAjax'
+  requirements:
+    _permission: 'access content'
+    method: 'nojs|ajax'

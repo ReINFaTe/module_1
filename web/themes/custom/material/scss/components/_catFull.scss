@@ -1,0 +1,45 @@
+.cat-full{
+  display: flex;
+  column-gap: 4em;
+  .cat-picture {
+    user-select: none;
+    width: 50vw;
+    height: 80vh;
+    flex: 0 0 auto;
+    box-sizing: content-box;
+    box-shadow: 14px 0 28px rgba(0,0,0,0.25), 10px 0 10px rgba(0,0,0,0.22);
+    img {
+      background-color: var(--theme-secondary);
+      height: 100%;
+      width: 100%;
+      object-fit: contain;
+      object-position: center;
+    }
+  }
+  .cat-info {
+    padding: 2em;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    max-width: 310px;
+    p {
+      margin: 0;
+    }
+    .label {
+      opacity: 0.5;
+      border-bottom: 1px solid var(--theme-secondary);
+    }
+    .cat-email {
+      font-size: 1.5em;
+    }
+    .cat-name {
+      font-size: 3em;
+      border-bottom: 5px solid var(--theme-primary);
+    }
+    .cat-created {
+      text-align: right;
+    }
+  }
+}
+

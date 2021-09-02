@@ -4,66 +4,71 @@
   row-gap: 3em;
   justify-content: space-between;
   flex-wrap: wrap;
-  &:hover {
-    .cat-block:not(:hover) {
-      filter: grayscale(1);
-      opacity: 0.5;
-      &::after {
-//        background-color: rgba(#000, 0.5);
-      }
-    }
+  a {
+    text-decoration: none;
   }
+  .ajax-progress {
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+  }
+  //&:hover {
+  //  .cat-block:not(:hover) {
+  //    filter: grayscale(1);
+  //    opacity: 0.5;
+  //    &::after {
+  //      background-color: rgba(#000, 0.5);
+  //    }
+  //  }
+  //}
 }
 .cat-block {
   box-shadow: 0 2px 1px -1px rgb(0 0 0 / 20%), 0px 1px 1px 0px rgb(0 0 0 / 14%), 0px 1px 3px 0px rgb(0 0 0 / 12%);
-  transition: filter 0.4s ease-in-out, opacity 0.4s ease-in-out;
+//  transition: filter 0.4s ease-in-out, opacity 0.4s ease-in-out;
+  transition: box-shadow 0.4s ease-in-out;
   position: relative;
   border-radius: 4px;
   overflow: hidden;
   max-width: 220px;
   display: flex;
   flex-direction: column;
-  //&::after{
-  //  content: '';
-  //  position: absolute;
-  //  top: 0;
-  //  left: 0;
-  //  width: 100%;
-  //  height: 100%;
-  //  background-color: rgba(#000, 0);
-  //  transition: .3s;
-  //}
-}
-.cat-picture {
-  width: 220px;
-  height: 225px;
-  flex: 0 0 auto;
-  box-sizing: content-box;
-  margin-bottom: 1em;
-  img {
-    background-color: var(--theme-secondary);
-    height: 100%;
-    width: 100%;
-    padding-bottom: 5px;
+  height: 100%;
+  &:hover {
+    box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+  }
+  .cat-picture {
+    width: 220px;
+    height: 225px;
+    flex: 0 0 auto;
+    box-sizing: content-box;
+    margin-bottom: 1em;
+    img {
+      background-color: var(--theme-secondary);
+      height: 100%;
+      width: 100%;
+      padding-bottom: 5px;
 
-    object-fit: contain;
-    object-position: center;
+      object-fit: contain;
+      object-position: center;
+    }
+  }
+  .cat-info {
+    padding: 1em;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+  }
+  .cat-email {
+    align-self: flex-start;
+  }
+  .cat-name {
+    font-size: 2em;
+  }
+  .cat-created {
+    align-self: flex-end;
+    opacity: 0.5;
   }
 }
-.cat-info {
-  padding: 1em;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  height: 100%;
-}
-.cat-email {
-  align-self: flex-start;
-}
-.cat-name {
-  font-size: 2em;
-}
-.cat-created {
-  align-self: flex-end;
-  opacity: 0.5;
-}
+

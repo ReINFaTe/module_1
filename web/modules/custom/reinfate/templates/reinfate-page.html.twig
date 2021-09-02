@@ -1,8 +1,8 @@
 <h2>{{ title }}</h2>
 <p>{{ text }}</p>
 {{ form }}
-
-<a href="{{ path('reinfate.catsListAjax', {'method': 'ajax'}) }}" class="use-ajax"> Refesh</a>
+<div class="reinfate-NewCatForm-messages form-messages"></div>
 {{ cats }}
-
-
+<div>
+  {{ pager }}
+</div>

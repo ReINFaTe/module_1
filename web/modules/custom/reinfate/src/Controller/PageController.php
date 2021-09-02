@@ -2,9 +2,8 @@
 
 namespace Drupal\reinfate\Controller;
 
-use Drupal\Console\Command\Database\AddCommand;
 use Drupal\Core\Ajax\AjaxResponse;
-use Drupal\Core\Ajax\AppendCommand;
+use Drupal\Core\Ajax\OpenDialogCommand;
 use Drupal\Core\Ajax\ReplaceCommand;
 use Drupal\Core\Controller\ControllerBase;
 use Drupal\file\Entity\File;
@@ -52,8 +51,48 @@ class PageController extends ControllerBase {
       '#text' => $this->t('You can add here a photo of your cat.'),
       '#form' => $form,
       '#cats' => $cats,
+      '#pager' => [
+        '#type' => 'pager',
+      ],
     ];
     return $build;
+  }
+
+  /**
+   * Ajax response for cat details.
+   */
+  public function catDetailsAjax($id) {
+    $result = $this->database->select('reinfate', 'c')
+      ->fields('c', ['id', 'cat_name', 'email', 'cat_picture', 'created'])
+      ->condition('id', $id, '=', [':id' => $id])
+      ->execute();
+    $cat = $result->fetch();
+    $cat->cat_picture = [
+      '#theme' => 'image_style',
+      '#style_name' => 'wide',
+      '#uri' => File::load($cat->cat_picture)->getFileUri(),
+      '#attributes' => [
+        'class' => 'cat-image',
+        'alt' => 'cat',
+      ],
+    ];
+    $cat_render = [
+      '#theme' => 'reinfate-cat-full',
+      '#cat_name' => $cat->cat_name,
+      '#email' => $cat->email,
+      '#cat_picture' => $cat->cat_picture,
+      '#created' => $cat->created,
+      '#catId' => $cat->id,
+    ];
+    $response = new AjaxResponse();
+    $dialog_options = [
+      'width' => 'auto',
+      'height' => 'auto',
+      'dialogClass' => 'cat-dialog',
+      'modal' => 'true',
+    ];
+    $response->addCommand(new OpenDialogCommand('#cat-details', 'cat', $cat_render, $dialog_options));
+    return $response;
   }
 
   /**
@@ -67,11 +106,26 @@ class PageController extends ControllerBase {
   }
 
   /**
+   * Ajax response for cats form.
+   */
+  public function catsFormAjax($method) {
+    $response = new AjaxResponse();
+    $form = $this->formBuilder->getForm('Drupal\reinfate\Form\NewCatForm');
+
+    $response->addCommand(new ReplaceCommand('.reinfate-newcatform', $form));
+    return $response;
+  }
+
+  /**
    * Selects reinfate table from database.
    */
   public function getCats(): array {
-    $result = $this->database->query("SELECT cat_name, email, cat_picture, created FROM {reinfate}");
-    $result = $result->fetchAll();
+    $result = $this->database->select('reinfate', 'c')
+      ->fields('c', ['id', 'cat_name', 'email', 'cat_picture', 'created'])
+      ->orderBy('id', 'DESC')
+    // ->extend(PagerSelectExtender::class)
+    // ->limit(5)
+      ->execute();
     $cats = [];
     $catsRender = [];
     foreach ($result as $cat) {
@@ -90,6 +144,7 @@ class PageController extends ControllerBase {
         '#email' => $cat->email,
         '#cat_picture' => $cat->cat_picture,
         '#created' => $cat->created,
+        '#catId' => $cat->id,
       ];
       array_push($cats, $cat_render);
       $catsRender = [

@@ -1,5 +1,9 @@
 global-styling:
   js:
     js/ajaxBeforeSend.js: {}
+    js/dialog.js: {}
   dependencies:
+    - core/jquery
     - ajax_command/ajaxCommand
+    - core/drupal.dialog.ajax
+    - core/jquery.form

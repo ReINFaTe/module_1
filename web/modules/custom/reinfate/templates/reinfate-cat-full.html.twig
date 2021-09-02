@@ -1,6 +1,8 @@
 <div class="cat-full">
   <div class="cat-picture">
-    {{ cat_picture }}
+    <a href="{{ file_url(cat_picture['#uri']) }}" target="_blank">
+      {{ cat_picture }}
+    </a>
   </div>
   <div class="cat-info">
     <div class="cat-email">

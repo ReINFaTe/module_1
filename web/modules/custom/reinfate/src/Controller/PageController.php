@@ -44,13 +44,12 @@ class PageController extends ControllerBase {
   public function build(): array {
     $form = $this->formBuilder->getForm('Drupal\reinfate\Form\NewCatForm');
     $cats = $this->getCats();
-    $this->getCats();
     $build['content'] = [
       '#theme' => 'reinfate-page',
       '#title' => $this->t('Hello!'),
       '#text' => $this->t('You can add here a photo of your cat.'),
       '#form' => $form,
-      '#cats' => $cats,
+      '#cats' => $cats ?: [],
       '#pager' => [
         '#type' => 'pager',
       ],
@@ -127,7 +126,6 @@ class PageController extends ControllerBase {
     // ->limit(5)
       ->execute();
     $cats = [];
-    $catsRender = [];
     foreach ($result as $cat) {
       $cat->cat_picture = [
         '#theme' => 'image_style',
@@ -147,12 +145,11 @@ class PageController extends ControllerBase {
         '#catId' => $cat->id,
       ];
       array_push($cats, $cat_render);
-      $catsRender = [
-        '#theme' => 'reinfate-cats-list',
-        '#cats' => $cats,
-      ];
     }
-    return $catsRender;
+    return [
+      '#theme' => 'reinfate-cats-list',
+      '#cats' => $cats,
+    ];
   }
 
 }

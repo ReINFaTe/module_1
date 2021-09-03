@@ -310,10 +310,9 @@ form .description {
      -moz-column-gap: 2em;
           column-gap: 2em;
   row-gap: 3em;
-  -webkit-box-pack: justify;
-  -webkit-justify-content: space-between;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
+  -webkit-justify-content: space-around;
+      -ms-flex-pack: distribute;
+          justify-content: space-around;
   -webkit-flex-wrap: wrap;
       -ms-flex-wrap: wrap;
           flex-wrap: wrap;
@@ -379,6 +378,7 @@ form .description {
      object-position: center;
 }
 .cat-block .cat-info {
+  word-wrap: break-word;
   padding: 1em;
   display: -webkit-box;
   display: -webkit-flex;
@@ -401,9 +401,11 @@ form .description {
           align-self: flex-start;
 }
 .cat-block .cat-name {
+  width: 100%;
   font-size: 2em;
 }
 .cat-block .cat-created {
+  text-align: right;
   -webkit-align-self: flex-end;
       -ms-flex-item-align: end;
           align-self: flex-end;
@@ -461,6 +463,7 @@ form .description {
       -ms-flex-pack: distribute;
           justify-content: space-around;
   max-width: 310px;
+  word-wrap: break-word;
 }
 .cat-full .cat-info p {
   margin: 0;

@@ -1,6 +1,6 @@
 global-styling:
   css:
-    base:
+    component:
       css/style.min.css: {}
   js:
     js/page_nav.js: {}

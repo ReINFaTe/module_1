@@ -1,9 +1,10 @@
 .cats-list {
   display: flex;
   column-gap: 2em;
-  row-gap: 3em;
+  row-gap: 4em;
   justify-content: space-around;
   flex-wrap: wrap;
+  margin-bottom: 4em;
   a {
     text-decoration: none;
   }
@@ -25,6 +26,7 @@
 }
 .cat-block {
   box-shadow: 0 2px 1px -1px rgb(0 0 0 / 20%), 0px 1px 1px 0px rgb(0 0 0 / 14%), 0px 1px 3px 0px rgb(0 0 0 / 12%);
+  background: var(--theme-surface);
 //  transition: filter 0.4s ease-in-out, opacity 0.4s ease-in-out;
   transition: box-shadow 0.4s ease-in-out;
   position: relative;
@@ -34,9 +36,7 @@
   display: flex;
   flex-direction: column;
   height: 100%;
-  &:hover {
-    box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
-  }
+  z-index: 0;
   .cat-picture {
     width: 220px;
     height: 225px;
@@ -60,6 +60,7 @@
     flex-direction: column;
     justify-content: space-between;
     height: 100%;
+    background: var(--theme-surface);
   }
   .cat-email {
     align-self: flex-start;
@@ -72,6 +73,41 @@
     text-align: right;
     align-self: flex-end;
     opacity: 0.5;
+  }
+  .administer-links {
+    position: absolute;
+    bottom: 0;
+    z-index: -1;
+    transition: bottom 0.2s ease-out;
+    display: flex;
+    width: 100%;
+    border-radius: 0 0 5px 5px;
+    overflow: hidden;
+    .delete {
+      &:hover {
+        background: var(--theme-error);
+      }
+    }
+    .edit {
+      &:hover {
+        background: var(--theme-primary);
+      }
+    }
+    button {
+      box-shadow: none;
+      flex-basis: 50%;
+      height: 50px;
+      background: rgba(black, 0.4);
+      border: none;
+    }
+  }
+  &:hover {
+    box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+    overflow: initial;
+    z-index: 3;
+    .administer-links {
+      bottom: -50px;
+    }
   }
 }
 

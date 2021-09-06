@@ -29,7 +29,7 @@ html[data-theme=Light] {
   padding: var(--padding-md) var(--padding-lg);
 }
 
-.layout-container button {
+.layout-container button, .ui-dialog button {
   border: none;
   border-radius: 2px;
   padding: 12px 18px;
@@ -47,17 +47,17 @@ html[data-theme=Light] {
   transition: filter 0.75s, box-shadow 0.5s;
   transition: filter 0.75s, box-shadow 0.5s, -webkit-filter 0.75s, -webkit-box-shadow 0.5s;
 }
-.layout-container button:hover {
+.layout-container button:hover, .ui-dialog button:hover {
   -webkit-filter: brightness(150%);
           filter: brightness(150%);
   -webkit-box-shadow: 0 0 4px 4px var(--theme-secondary);
           box-shadow: 0 0 4px 4px var(--theme-secondary);
 }
-.layout-container button:active {
+.layout-container button:active, .ui-dialog button:active {
   -webkit-filter: invert(20%);
           filter: invert(20%);
 }
-.layout-container .menu-button {
+.layout-container .menu-button, .ui-dialog .menu-button {
   position: relative;
   background-color: var(--theme-primary);
   border: none;
@@ -65,15 +65,15 @@ html[data-theme=Light] {
   -o-transition: all 0.75s;
   transition: all 0.75s;
 }
-.layout-container .menu-button:hover {
+.layout-container .menu-button:hover, .ui-dialog .menu-button:hover {
   -webkit-filter: brightness(150%);
           filter: brightness(150%);
 }
-.layout-container .menu-button:active {
+.layout-container .menu-button:active, .ui-dialog .menu-button:active {
   -webkit-filter: invert(20%);
           filter: invert(20%);
 }
-.layout-container .menu-button span {
+.layout-container .menu-button span, .ui-dialog .menu-button span {
   text-align: center;
   height: 3px;
   width: 23px;
@@ -85,7 +85,7 @@ html[data-theme=Light] {
   -o-transition: all 0.2s ease-out;
   transition: all 0.2s ease-out;
 }
-.layout-container .menu-button span::before, .layout-container .menu-button span::after {
+.layout-container .menu-button span::before, .layout-container .menu-button span::after, .ui-dialog .menu-button span::before, .ui-dialog .menu-button span::after {
   height: 100%;
   width: 100%;
   display: block;
@@ -93,10 +93,10 @@ html[data-theme=Light] {
   background: var(--theme-on-primary);
   content: "";
 }
-.layout-container .menu-button span::before {
+.layout-container .menu-button span::before, .ui-dialog .menu-button span::before {
   top: 7px;
 }
-.layout-container .menu-button span::after {
+.layout-container .menu-button span::after, .ui-dialog .menu-button span::after {
   top: -7px;
 }
 
@@ -126,18 +126,18 @@ ul.menu a:active {
           filter: invert(20%);
 }
 
-.cat-dialog.ui-dialog {
+.ui-dialog {
   -webkit-box-shadow: 0 11px 15px -7px rgba(0, 0, 0, 0.2), 0px 24px 38px 3px rgba(0, 0, 0, 0.14), 0px 9px 46px 8px rgba(0, 0, 0, 0.12);
           box-shadow: 0 11px 15px -7px rgba(0, 0, 0, 0.2), 0px 24px 38px 3px rgba(0, 0, 0, 0.14), 0px 9px 46px 8px rgba(0, 0, 0, 0.12);
   border: none;
   border-radius: 10px;
   overflow: hidden;
 }
-.cat-dialog.ui-dialog .ui-dialog-titlebar {
+.ui-dialog .ui-dialog-titlebar {
   background-color: var(--theme-primary);
   color: var(--theme-on-primary);
 }
-.cat-dialog.ui-dialog .ui-dialog-titlebar .ui-dialog-titlebar-close .ui-button-icon {
+.ui-dialog .ui-dialog-titlebar .ui-dialog-titlebar-close .ui-button-icon {
   -webkit-transition: -webkit-transform 0.2s ease-in-out;
   transition: -webkit-transform 0.2s ease-in-out;
   -o-transition: -o-transform 0.2s ease-in-out;
@@ -145,15 +145,20 @@ ul.menu a:active {
   transition: transform 0.2s ease-in-out, -webkit-transform 0.2s ease-in-out, -o-transform 0.2s ease-in-out;
   background-image: url("/core/assets/vendor/jquery.ui/themes/base/images/ui-icons_ffffff_256x240.png");
 }
-.cat-dialog.ui-dialog .ui-dialog-titlebar .ui-dialog-titlebar-close .ui-button-icon:hover {
+.ui-dialog .ui-dialog-titlebar .ui-dialog-titlebar-close .ui-button-icon:hover {
   background-image: url("/core/assets/vendor/jquery.ui/themes/base/images/ui-icons_555555_256x240.png");
 }
-.cat-dialog.ui-dialog .ui-dialog-titlebar .ui-dialog-titlebar-close .ui-button-icon:active {
+.ui-dialog .ui-dialog-titlebar .ui-dialog-titlebar-close .ui-button-icon:active {
   background-image: url("/core/assets/vendor/jquery.ui/themes/base/images/ui-icons_ffffff_256x240.png");
   -webkit-transform: rotate3d(0, 1, 0, 45deg) scale(1.1);
           transform: rotate3d(0, 1, 0, 45deg) scale(1.1);
 }
-.cat-dialog.ui-dialog .ui-dialog-content {
+.ui-dialog .ui-button:hover {
+  background-color: var(--theme-primary);
+  color: var(--theme-on-primary);
+  border: none;
+}
+.ui-dialog .ui-dialog-content {
   background-color: var(--theme-surface);
 }
 
@@ -309,13 +314,14 @@ form .description {
   -webkit-column-gap: 2em;
      -moz-column-gap: 2em;
           column-gap: 2em;
-  row-gap: 3em;
+  row-gap: 4em;
   -webkit-justify-content: space-around;
       -ms-flex-pack: distribute;
           justify-content: space-around;
   -webkit-flex-wrap: wrap;
       -ms-flex-wrap: wrap;
           flex-wrap: wrap;
+  margin-bottom: 4em;
 }
 .cats-list a {
   text-decoration: none;
@@ -332,6 +338,7 @@ form .description {
 .cat-block {
   -webkit-box-shadow: 0 2px 1px -1px rgba(0, 0, 0, 0.2), 0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 1px 3px 0px rgba(0, 0, 0, 0.12);
           box-shadow: 0 2px 1px -1px rgba(0, 0, 0, 0.2), 0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 1px 3px 0px rgba(0, 0, 0, 0.12);
+  background: var(--theme-surface);
   -webkit-transition: -webkit-box-shadow 0.4s ease-in-out;
   transition: -webkit-box-shadow 0.4s ease-in-out;
   -o-transition: box-shadow 0.4s ease-in-out;
@@ -351,10 +358,7 @@ form .description {
       -ms-flex-direction: column;
           flex-direction: column;
   height: 100%;
-}
-.cat-block:hover {
-  -webkit-box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
-          box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+  z-index: 0;
 }
 .cat-block .cat-picture {
   width: 220px;
@@ -394,6 +398,7 @@ form .description {
       -ms-flex-pack: justify;
           justify-content: space-between;
   height: 100%;
+  background: var(--theme-surface);
 }
 .cat-block .cat-email {
   -webkit-align-self: flex-start;
@@ -410,6 +415,46 @@ form .description {
       -ms-flex-item-align: end;
           align-self: flex-end;
   opacity: 0.5;
+}
+.cat-block .administer-links {
+  position: absolute;
+  bottom: 0;
+  z-index: -1;
+  -webkit-transition: bottom 0.2s ease-out;
+  -o-transition: bottom 0.2s ease-out;
+  transition: bottom 0.2s ease-out;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  width: 100%;
+  border-radius: 0 0 5px 5px;
+  overflow: hidden;
+}
+.cat-block .administer-links .delete:hover {
+  background: var(--theme-error);
+}
+.cat-block .administer-links .edit:hover {
+  background: var(--theme-primary);
+}
+.cat-block .administer-links button {
+  -webkit-box-shadow: none;
+          box-shadow: none;
+  -webkit-flex-basis: 50%;
+      -ms-flex-preferred-size: 50%;
+          flex-basis: 50%;
+  height: 50px;
+  background: rgba(0, 0, 0, 0.4);
+  border: none;
+}
+.cat-block:hover {
+  -webkit-box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+          box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+  overflow: initial;
+  z-index: 3;
+}
+.cat-block:hover .administer-links {
+  bottom: -50px;
 }
 
 .cat-full {

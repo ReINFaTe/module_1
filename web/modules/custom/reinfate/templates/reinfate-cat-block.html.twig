@@ -14,5 +14,17 @@
         <p>{{ created | date("d/F/Y G:i:s") }}</p>
       </div>
     </div>
+    {% if 'administrator' in user.getroles %}
+      <div class="administer-links">
+        <button class="use-ajax delete" href="{{ path('reinfate.catDelete', {'id': catId}) }}" data-dialog-type="modal">
+          Delete
+        </button>
+        <button class="use-ajax edit" href="{{ path('reinfate.catEdit', {'id': catId}) }}" data-dialog-type="modal">
+          Edit
+        </button>
+      </div>
+    {% endif %}
   </div>
 </a>
+
+

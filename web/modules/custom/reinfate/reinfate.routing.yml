@@ -14,14 +14,6 @@ reinfate.catsListAjax:
     _permission: 'access content'
     method: 'nojs|ajax'
 
-reinfate.catDetailsAjax:
-  path: '/reinfate/cats/{method}/catDetails/{id}'
-  defaults:
-    _controller: '\Drupal\reinfate\Controller\PageController::catDetailsAjax'
-  requirements:
-    _permission: 'access content'
-    method: 'nojs|ajax'
-
 reinfate.catsFormAjax:
   path: '/reinfate/cats/{method}/catsForm'
   defaults:
@@ -29,3 +21,28 @@ reinfate.catsFormAjax:
   requirements:
     _permission: 'access content'
     method: 'nojs|ajax'
+
+reinfate.catDetailsAjax:
+  path: '/reinfate/cats/{method}/catDetails/{id}'
+  defaults:
+    _controller: '\Drupal\reinfate\Controller\PageController::catDetailsAjax'
+  requirements:
+    _permission: 'access content'
+    method: 'nojs|ajax'
+    id: ^\d+$
+
+reinfate.catDelete:
+  path: '/reinfate/cats/{id}/delete'
+  defaults:
+    _form: '\Drupal\reinfate\Form\DeleteCatForm'
+  requirements:
+    _permission: 'administer nodes'
+    id: ^\d+$
+
+reinfate.catEdit:
+  path: '/reinfate/cats/{id}/edit'
+  defaults:
+    _form: '\Drupal\reinfate\Form\NewCatForm'
+  requirements:
+    _permission: 'administer nodes'
+    id: ^\d+$

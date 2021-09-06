@@ -49,7 +49,11 @@ class PageController extends ControllerBase {
       '#title' => $this->t('Hello!'),
       '#text' => $this->t('You can add here a photo of your cat.'),
       '#form' => $form,
-      '#cats' => $cats ?: [],
+      '#cats' => $cats,
+//      '#links' => [
+//        'edit' =>,no,
+//        'delete' =>,
+//      ],
       '#pager' => [
         '#type' => 'pager',
       ],
@@ -63,7 +67,7 @@ class PageController extends ControllerBase {
   public function catDetailsAjax($id) {
     $result = $this->database->select('reinfate', 'c')
       ->fields('c', ['id', 'cat_name', 'email', 'cat_picture', 'created'])
-      ->condition('id', $id, '=', [':id' => $id])
+      ->condition('id', $id)
       ->execute();
     $cat = $result->fetch();
     $cat->cat_picture = [

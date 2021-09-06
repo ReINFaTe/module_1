@@ -2,7 +2,7 @@
   Drupal.behaviors.messagesBehavior = {
     attach: function (context, settings) {
       setTimeout(() => {
-        $('.form-messages .messages').each(
+        $('.messages-overlay .messages').each(
           function () {
             $(this).once('displayed').addClass('active');
             setTimeout(() => {
@@ -20,7 +20,7 @@
   Drupal.behaviors.messagesClickBehavior = {
     attach: function (context, settings) {
       setTimeout(() => {
-        $('.form-messages .messages', context).once('clickBehavior').click(function () {
+        $('.messages-overlay .messages').once('clickBehavior').click(function () {
           $(this).slideUp(1000);
           setTimeout(() => {
             $(this).remove()

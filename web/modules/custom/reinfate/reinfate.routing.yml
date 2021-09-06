@@ -42,7 +42,7 @@ reinfate.catDelete:
 reinfate.catEdit:
   path: '/reinfate/cats/{id}/edit'
   defaults:
-    _form: '\Drupal\reinfate\Form\NewCatForm'
+    _form: '\Drupal\reinfate\Form\EditCatForm'
   requirements:
     _permission: 'administer nodes'
     id: ^\d+$

@@ -2,6 +2,7 @@
 
 namespace Drupal\reinfate\Form;
 
+use Drupal\Component\Utility\Html;
 use Drupal\Core\Ajax\ReplaceCommand;
 use Drupal\Core\Url;
 use Drupal\file\Entity\File;
@@ -38,6 +39,7 @@ class NewCatForm extends FormBase {
    * @var \Drupal\Core\Database\
    */
   protected $database;
+
 
   /**
    * {@inheritDoc}
@@ -121,14 +123,15 @@ class NewCatForm extends FormBase {
   public function validateEmail(array &$form, FormStateInterface $form_state) {
     $regex = '/[^\w_\-@\.]+/';
     $response = new AjaxResponse();
+    $form_selector = '.' . mb_strtolower(Html::cleanCssIdentifier($this->getFormId()));
     if (preg_match($regex, $form_state->getValue('email'))) {
       $response->addCommand(new MessageCommand(
-        $this->t("Only latin characters and -, _ are allowed"), '.reinfate-NewCatForm-messages', ['type' => 'error'], TRUE
+        $this->t("Only latin characters and -, _ are allowed"), '.messages-overlay', ['type' => 'error'], TRUE
       ));
-      $response->addCommand(new InvokeCommand('.reinfate-newcatform .form-email', 'addClass', ['error']));
+      $response->addCommand(new InvokeCommand($form_selector . ' .form-email', 'addClass', ['error']));
     }
     else {
-      $response->addCommand(new InvokeCommand('.reinfate-newcatform  .form-email', 'removeClass', ['error']));
+      $response->addCommand(new InvokeCommand($form_selector . ' .form-email', 'removeClass', ['error']));
     }
     return $response;
   }
@@ -152,8 +155,8 @@ class NewCatForm extends FormBase {
    * @throws \Drupal\Core\Entity\EntityStorageException
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
-    $file_data = $form_state->getValue(['cat_picture']);
-    $file = File::load($file_data[0]);
+    $file_data = $form_state->getValue(['cat_picture'])[0];
+    $file = File::load($file_data);
     $file->setPermanent();
     $file->save();
     $this->database
@@ -174,16 +177,16 @@ class NewCatForm extends FormBase {
   public function submitAjax(array &$form, FormStateInterface $form_state) {
     $response = new AjaxResponse();
     $form_state->setRebuild(TRUE);
-    $response->addCommand(new ReplaceCommand('.reinfate-newcatform', $form));
+    $form_selector = '.' . mb_strtolower(Html::cleanCssIdentifier($this->getFormId()));
+    $response->addCommand(new ReplaceCommand($form_selector, $form));
 
     if ($form_state->hasAnyErrors()) {
       foreach ($form_state->getErrors() as $err) {
-        $response->addCommand(new MessageCommand($err, '.reinfate-NewCatForm-messages', ['type' => 'error'], FALSE));
+        $response->addCommand(new MessageCommand($err, '.messages-overlay', ['type' => 'error'], FALSE));
       }
-      $form_state->clearErrors();
     }
     else {
-      $response->addCommand(new MessageCommand('Your cat submitted.', '.reinfate-NewCatForm-messages'));
+      $response->addCommand(new MessageCommand('Your cat submitted.', '.messages-overlay'));
       $url = Url::fromRoute("reinfate.catsListAjax",
         ["method" => "ajax"], ['absolute' => FALSE])->toString();
       $response->addCommand(new AjaxCommand($url));

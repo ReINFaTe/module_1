@@ -46,3 +46,11 @@ reinfate.catEdit:
   requirements:
     _permission: 'administer nodes'
     id: ^\d+$
+
+reinfate.adminMenu:
+  path: '/admin/structure/cats'
+  defaults:
+    _title: 'Cats list'
+    _form: 'Drupal\reinfate\Form\AdminCatForm'
+  requirements:
+    _permission: 'administer site configuration'

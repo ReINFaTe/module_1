@@ -1,0 +1,6 @@
+reinfate.cats:
+  title: 'Cats list'
+  parent: system.admin_structure
+  description: 'Submitted cats.'
+  route_name: reinfate.adminMenu
+  weight: 100

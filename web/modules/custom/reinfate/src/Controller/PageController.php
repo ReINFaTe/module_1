@@ -50,13 +50,6 @@ class PageController extends ControllerBase {
       '#text' => $this->t('You can add here a photo of your cat.'),
       '#form' => $form,
       '#cats' => $cats,
-//      '#links' => [
-//        'edit' =>,no,
-//        'delete' =>,
-//      ],
-      '#pager' => [
-        '#type' => 'pager',
-      ],
     ];
     return $build;
   }
@@ -64,7 +57,7 @@ class PageController extends ControllerBase {
   /**
    * Ajax response for cat details.
    */
-  public function catDetailsAjax($id) {
+  public function catDetailsAjax($method, $id) {
     $result = $this->database->select('reinfate', 'c')
       ->fields('c', ['id', 'cat_name', 'email', 'cat_picture', 'created'])
       ->condition('id', $id)
@@ -87,36 +80,70 @@ class PageController extends ControllerBase {
       '#created' => $cat->created,
       '#catId' => $cat->id,
     ];
-    $response = new AjaxResponse();
     $dialog_options = [
       'width' => 'auto',
       'height' => 'auto',
       'dialogClass' => 'cat-dialog',
       'modal' => 'true',
     ];
-    $response->addCommand(new OpenDialogCommand('#cat-details', 'cat', $cat_render, $dialog_options));
-    return $response;
+    switch ($method) {
+      case 'ajax':{
+        $response = new AjaxResponse();
+        $response->addCommand(new OpenDialogCommand('#cat-details', 'cat', $cat_render, $dialog_options));
+        return $response;
+      }
+      case 'nojs':{
+        return $cat_render;
+      }
+    }
   }
 
   /**
    * Ajax response for cats list.
    */
-  public function catsListAjax() {
-    $response = new AjaxResponse();
-    $cats = $this->getCats();
-    $response->addCommand(new ReplaceCommand('.cats-list', $cats));
-    return $response;
+  public function catsListAjax($method) {
+    switch ($method) {
+      case 'ajax':{
+        $response = new AjaxResponse();
+        $cats = $this->getCats();
+        $response->addCommand(new ReplaceCommand('.cats-list', $cats));
+        return $response;
+      }
+      case 'nojs':{
+        $cats = $this->getCats();
+        $build['content'] = [
+          '#theme' => 'reinfate-page',
+          '#title' => $this->t('Hello!'),
+          '#text' => $this->t('Here are all submitted cats.'),
+          '#cats' => $cats,
+        ];
+        return $build;
+      }
+    }
   }
 
   /**
    * Ajax response for cats form.
    */
   public function catsFormAjax($method) {
-    $response = new AjaxResponse();
-    $form = $this->formBuilder->getForm('Drupal\reinfate\Form\NewCatForm');
-
-    $response->addCommand(new ReplaceCommand('.reinfate-newcatform', $form));
-    return $response;
+    switch ($method) {
+      case 'ajax':{
+        $response = new AjaxResponse();
+        $form = $this->formBuilder->getForm('Drupal\reinfate\Form\NewCatForm');
+        $response->addCommand(new ReplaceCommand('.reinfate-newcatform', $form));
+        return $response;
+      }
+      case 'nojs':{
+        $form = $this->formBuilder->getForm('Drupal\reinfate\Form\NewCatForm');
+        $build['content'] = [
+          '#theme' => 'reinfate-page',
+          '#title' => $this->t('Hello!'),
+          '#text' => $this->t('You can add here a photo of your cat.'),
+          '#form' => $form,
+        ];
+        return $build;
+      }
+    }
   }
 
   /**
@@ -126,8 +153,6 @@ class PageController extends ControllerBase {
     $result = $this->database->select('reinfate', 'c')
       ->fields('c', ['id', 'cat_name', 'email', 'cat_picture', 'created'])
       ->orderBy('id', 'DESC')
-    // ->extend(PagerSelectExtender::class)
-    // ->limit(5)
       ->execute();
     $cats = [];
     foreach ($result as $cat) {

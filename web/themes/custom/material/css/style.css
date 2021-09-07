@@ -324,9 +324,10 @@ form .description {
       -ms-flex-wrap: wrap;
           flex-wrap: wrap;
   margin-bottom: 4em;
-}
-.cats-list a {
-  text-decoration: none;
+  -webkit-box-align: stretch;
+  -webkit-align-items: stretch;
+      -ms-flex-align: stretch;
+          align-items: stretch;
 }
 .cats-list .ajax-progress {
   position: fixed;
@@ -350,6 +351,14 @@ form .description {
   border-radius: 4px;
   overflow: hidden;
   max-width: 220px;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  z-index: 0;
+}
+.cat-block > a {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -359,8 +368,8 @@ form .description {
   -webkit-flex-direction: column;
       -ms-flex-direction: column;
           flex-direction: column;
+  text-decoration: none;
   height: 100%;
-  z-index: 0;
 }
 .cat-block .cat-picture {
   width: 220px;
@@ -433,13 +442,20 @@ form .description {
   border-radius: 0 0 5px 5px;
   overflow: hidden;
 }
-.cat-block .administer-links .delete:hover {
-  background: var(--theme-error);
-}
-.cat-block .administer-links .edit:hover {
-  background: var(--theme-primary);
-}
-.cat-block .administer-links button {
+.cat-block .administer-links a {
+  display: block;
+  border-radius: 2px;
+  padding: 12px 18px;
+  font-size: 16px;
+  text-transform: uppercase;
+  cursor: pointer;
+  color: white;
+  outline: none;
+  -webkit-transition: -webkit-filter 0.75s, -webkit-box-shadow 0.5s;
+  transition: -webkit-filter 0.75s, -webkit-box-shadow 0.5s;
+  -o-transition: filter 0.75s, box-shadow 0.5s;
+  transition: filter 0.75s, box-shadow 0.5s;
+  transition: filter 0.75s, box-shadow 0.5s, -webkit-filter 0.75s, -webkit-box-shadow 0.5s;
   -webkit-box-shadow: none;
           box-shadow: none;
   -webkit-flex-basis: 50%;
@@ -447,7 +463,24 @@ form .description {
           flex-basis: 50%;
   height: 50px;
   background: rgba(0, 0, 0, 0.4);
-  border: none;
+  text-align: center;
+  text-decoration: none;
+}
+.cat-block .administer-links a:hover {
+  -webkit-filter: brightness(150%);
+          filter: brightness(150%);
+  -webkit-box-shadow: 0 0 4px 4px var(--theme-secondary);
+          box-shadow: 0 0 4px 4px var(--theme-secondary);
+}
+.cat-block .administer-links a:active {
+  -webkit-filter: invert(20%);
+          filter: invert(20%);
+}
+.cat-block .administer-links .delete:hover {
+  background: var(--theme-error);
+}
+.cat-block .administer-links .edit:hover {
+  background: var(--theme-primary);
 }
 .cat-block:hover {
   -webkit-box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);

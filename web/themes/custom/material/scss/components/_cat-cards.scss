@@ -5,38 +5,30 @@
   justify-content: space-around;
   flex-wrap: wrap;
   margin-bottom: 4em;
-  a {
-    text-decoration: none;
-  }
+  align-items: stretch;
   .ajax-progress {
     position: fixed;
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
   }
-  //&:hover {
-  //  .cat-block:not(:hover) {
-  //    filter: grayscale(1);
-  //    opacity: 0.5;
-  //    &::after {
-  //      background-color: rgba(#000, 0.5);
-  //    }
-  //  }
-  //}
 }
 .cat-block {
   box-shadow: 0 2px 1px -1px rgb(0 0 0 / 20%), 0px 1px 1px 0px rgb(0 0 0 / 14%), 0px 1px 3px 0px rgb(0 0 0 / 12%);
   background: var(--theme-surface);
-//  transition: filter 0.4s ease-in-out, opacity 0.4s ease-in-out;
   transition: box-shadow 0.4s ease-in-out;
   position: relative;
   border-radius: 4px;
   overflow: hidden;
   max-width: 220px;
-  display: flex;
   flex-direction: column;
-  height: 100%;
   z-index: 0;
+  & > a {
+    display: flex;
+    flex-direction: column;
+    text-decoration: none;
+    height: 100%;
+  }
   .cat-picture {
     width: 220px;
     height: 225px;
@@ -83,6 +75,30 @@
     width: 100%;
     border-radius: 0 0 5px 5px;
     overflow: hidden;
+    a {
+      display: block;
+      border-radius: 2px;
+      padding: 12px 18px;
+      font-size: 16px;
+      text-transform: uppercase;
+      cursor: pointer;
+      color: white;
+      outline: none;
+      transition: filter 0.75s, box-shadow 0.5s;
+      box-shadow: none;
+      flex-basis: 50%;
+      height: 50px;
+      background: rgba(black, 0.4);
+      text-align: center;
+      text-decoration: none;
+      &:hover{
+        filter: brightness(150%);
+        box-shadow: 0 0 4px 4px var(--theme-secondary);
+      }
+      &:active {
+        filter: invert(20%);
+      }
+    }
     .delete {
       &:hover {
         background: var(--theme-error);
@@ -92,13 +108,6 @@
       &:hover {
         background: var(--theme-primary);
       }
-    }
-    button {
-      box-shadow: none;
-      flex-basis: 50%;
-      height: 50px;
-      background: rgba(black, 0.4);
-      border: none;
     }
   }
   &:hover {

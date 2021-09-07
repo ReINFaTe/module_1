@@ -20,34 +20,19 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 class NewCatForm extends FormBase {
 
   /**
-   * Drupal\Core\Messenger\Messenger definition.
-   *
-   * @var \Drupal\Core\Messenger\Messenger
-   */
-  protected $messenger;
-
-  /**
-   * Drupal\Core\StringTranslation\TranslationManager definition.
-   *
-   * @var \Drupal\Core\StringTranslation\TranslationManager
-   */
-  protected $t;
-
-  /**
    * Drupal\Core\Database\ definition.
    *
    * @var \Drupal\Core\Database\
    */
   protected $database;
 
-
   /**
    * {@inheritDoc}
    */
   public static function create(ContainerInterface $container): NewCatForm {
     $instance = parent::create($container);
-    $instance->t = $container->get('string_translation');
-    $instance->messenger = $container->get('messenger');
+    $instance->setStringTranslation($container->get('string_translation'));
+    $instance->setMessenger($container->get('messenger'));
     $instance->database = $container->get('database');
     return $instance;
   }
@@ -179,7 +164,6 @@ class NewCatForm extends FormBase {
     $form_state->setRebuild(TRUE);
     $form_selector = '.' . mb_strtolower(Html::cleanCssIdentifier($this->getFormId()));
     $response->addCommand(new ReplaceCommand($form_selector, $form));
-
     if ($form_state->hasAnyErrors()) {
       foreach ($form_state->getErrors() as $err) {
         $response->addCommand(new MessageCommand($err, '.messages-overlay', ['type' => 'error'], FALSE));
@@ -196,6 +180,7 @@ class NewCatForm extends FormBase {
     }
 
     $this->messenger->deleteAll();
+    $form_state->setValue('cat_name', 'fu');
     return $response;
   }
 

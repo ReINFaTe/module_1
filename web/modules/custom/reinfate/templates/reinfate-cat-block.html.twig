@@ -1,30 +1,31 @@
-<a class="use-ajax" href="{{ path('reinfate.catDetailsAjax', {'id': catId, 'method': 'nojs'}) }}">
-  <div class="cat-block">
-    <div class="cat-picture">
-      {{ cat_picture }}
-    </div>
-    <div class="cat-info">
-      <div class="cat-email">
-        <p>{{ email }}</p>
-      </div>
-      <div class="cat-name">
-        <p>{{ cat_name }}</p>
-      </div>
-      <div class="cat-created">
-        <p>{{ created | date("d/F/Y G:i:s") }}</p>
-      </div>
-    </div>
-    {% if 'administrator' in user.getroles %}
-      <div class="administer-links">
-        <button class="use-ajax delete" href="{{ path('reinfate.catDelete', {'id': catId}) }}" data-dialog-type="modal">
-          Delete
-        </button>
-        <button class="use-ajax edit" href="{{ path('reinfate.catEdit', {'id': catId}) }}" data-dialog-type="modal">
-          Edit
-        </button>
-      </div>
-    {% endif %}
+<div class="cat-block">
+  <a class="use-ajax" href="{{ path('reinfate.catDetailsAjax', {'id': catId, 'method': 'nojs'}) }}">
+  <div class="cat-picture">
+    {{ cat_picture }}
   </div>
-</a>
+  <div class="cat-info">
+    <div class="cat-email">
+      <p>{{ email }}</p>
+    </div>
+    <div class="cat-name">
+      <p>{{ cat_name }}</p>
+    </div>
+    <div class="cat-created">
+      <p>{{ created | date("d/F/Y G:i:s") }}</p>
+    </div>
+  </div>
+  </a>
+  {% if 'administrator' in user.getroles %}
+    <div class="administer-links">
+      <a class="use-ajax delete" href="{{ path('reinfate.catDelete', {'id': catId}) }}" data-dialog-type="modal">
+        Delete
+      </a>
+      <a class="use-ajax edit" href="{{ path('reinfate.catEdit', {'id': catId}) }}" data-dialog-type="modal">
+        Edit
+      </a>
+    </div>
+  {% endif %}
+</div>
+
 
 

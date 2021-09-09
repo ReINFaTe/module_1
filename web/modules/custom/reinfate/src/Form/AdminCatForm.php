@@ -123,7 +123,12 @@ class AdminCatForm extends ConfirmFormBase {
     ];
     $form['submit'] = [
       '#type' => 'submit',
-      '#value' => $this->t('Confirm'),
+      '#value' => $this->t('Delete selected cats'),
+      '#states' => [
+        'enabled' => [
+          ':input[name^="table"]' => ['checked' => TRUE],
+        ],
+      ],
     ];
     return $form;
   }

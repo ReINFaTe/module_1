@@ -55,6 +55,10 @@ class EditCatForm extends NewCatForm {
       'email' => $form_state->getValue('email'),
       'cat_picture' => $form_state->getValue('cat_picture')[0],
     ];
+    $file = File::load($form_state->getValue('cat_picture')[0]);
+    $file->setPermanent();
+    $file->save();
+
     $this->database
       ->update('reinfate')
       ->condition('id', $this->cat->id)

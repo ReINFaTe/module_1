@@ -180,7 +180,6 @@ class NewCatForm extends FormBase {
     }
 
     $this->messenger->deleteAll();
-    $form_state->setValue('cat_name', 'fu');
     return $response;
   }
 

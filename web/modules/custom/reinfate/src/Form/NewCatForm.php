@@ -4,6 +4,7 @@ namespace Drupal\reinfate\Form;
 
 use Drupal\Component\Utility\Html;
 use Drupal\Core\Ajax\ReplaceCommand;
+use Drupal\Core\Cache\Cache;
 use Drupal\Core\Url;
 use Drupal\file\Entity\File;
 use Drupal\Core\Ajax\AjaxResponse;
@@ -154,6 +155,7 @@ class NewCatForm extends FormBase {
       ])
       ->execute();
     $this->messenger->addMessage($this->t("Cat submitted"));
+    Cache::invalidateTags(['reinfate_cat_list']);
   }
 
   /**

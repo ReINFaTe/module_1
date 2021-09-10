@@ -79,6 +79,11 @@ class PageController extends ControllerBase {
       '#cat_picture' => $cat->cat_picture,
       '#created' => $cat->created,
       '#catId' => $cat->id,
+      '#cache' => [
+        'tags' => [
+          'reinfate_cat-' . $cat->id,
+        ],
+      ],
     ];
     $dialog_options = [
       'width' => 'auto',
@@ -172,12 +177,22 @@ class PageController extends ControllerBase {
         '#cat_picture' => $cat->cat_picture,
         '#created' => $cat->created,
         '#catId' => $cat->id,
+        '#cache' => [
+          'tags' => [
+            'reinfate_cat-' . $cat->id,
+          ],
+        ],
       ];
       array_push($cats, $cat_render);
     }
     return [
       '#theme' => 'reinfate-cats-list',
       '#cats' => $cats,
+      '#cache' => [
+        'tags' => [
+          'reinfate_cat_list',
+        ],
+      ],
     ];
   }
 

@@ -3,6 +3,7 @@
 namespace Drupal\reinfate\Form;
 
 use Drupal\Core\Ajax\CloseModalDialogCommand;
+use Drupal\Core\Cache\Cache;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\file\Entity\File;
 
@@ -67,6 +68,7 @@ class EditCatForm extends NewCatForm {
     if ($updated['cat_picture'] != $this->cat->cat_picture) {
       File::load($this->cat->cat_picture)->delete();
     }
+    Cache::invalidateTags(['reinfate_cat_list']);
   }
 
   /**

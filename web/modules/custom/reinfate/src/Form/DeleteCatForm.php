@@ -2,6 +2,7 @@
 
 namespace Drupal\reinfate\Form;
 
+use Drupal\Core\Cache\Cache;
 use Drupal\Core\Form\ConfirmFormBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Url;
@@ -90,6 +91,7 @@ class DeleteCatForm extends ConfirmFormBase {
       ->execute();
     $this->messenger->addStatus('You successfully deleted cat record');
     $form_state->setRedirect('reinfate.cats');
+    Cache::invalidateTags(['reinfate_cat_list']);
   }
 
 }

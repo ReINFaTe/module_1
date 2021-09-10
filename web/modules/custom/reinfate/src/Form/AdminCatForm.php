@@ -2,6 +2,7 @@
 
 namespace Drupal\reinfate\Form;
 
+use Drupal\Core\Cache\Cache;
 use Drupal\Core\Form\ConfirmFormBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Url;
@@ -154,7 +155,9 @@ class AdminCatForm extends ConfirmFormBase {
     $this->database->delete('reinfate')
       ->condition('id', $this->data['table'], 'IN')
       ->execute();
-    $this->messenger->addMessage('Deleted cat');
+    $this->messenger->addMessage($this->t('Deleted cat(s)'));
+    Cache::invalidateTags(['reinfate_cat_list']);
+
   }
 
 }

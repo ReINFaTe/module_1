@@ -500,6 +500,7 @@ form .description {
   -webkit-column-gap: 4em;
      -moz-column-gap: 4em;
           column-gap: 4em;
+  height: 70vh;
 }
 .cat-full .cat-picture {
   -webkit-user-select: none;
@@ -507,7 +508,6 @@ form .description {
       -ms-user-select: none;
           user-select: none;
   width: 50vw;
-  height: 80vh;
   -webkit-box-flex: 0;
   -webkit-flex: 0 0 auto;
       -ms-flex: 0 0 auto;

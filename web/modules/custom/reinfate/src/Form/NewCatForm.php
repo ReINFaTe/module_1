@@ -127,7 +127,7 @@ class NewCatForm extends FormBase {
    */
   public function validateForm(array &$form, FormStateInterface $form_state) {
     $cat_name = $form_state->getValue('cat_name');
-    if (strlen($cat_name) < 2 || strlen($cat_name) > 32) {
+    if (mb_strlen($cat_name) < 2 || mb_strlen($cat_name) > 32) {
       $form_state->setErrorByName('cat_name',
         $this->t("Cat name should be in the range of 2 and 32 symbols")
       );
